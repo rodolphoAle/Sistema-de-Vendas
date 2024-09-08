@@ -14,17 +14,21 @@ import javax.swing.JOptionPane;
  * @author rodolpho
  */
 public class Banco {
-    final private String url="jdbc:mysql//localhost/sistemestoque";
+    final private String url="jdbc:mysql://localhost:3306/sistemaestoque";
     final private String usuario="root";
     final private String senha="";
     
     public Connection getConexao(){
-        try {
-            return DriverManager.getConnection(url,usuario,senha);
+      try {
+           
+            // Tenta se conectar ao banco de dados
+            Connection conexao = DriverManager.getConnection(url, usuario, senha);
+         
+            return conexao;
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "erro ao se conectar no servidor "+erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao se conectar no servidor: " + erro.getMessage());
         }
-        return null
+        return null;
     }
     
 }
