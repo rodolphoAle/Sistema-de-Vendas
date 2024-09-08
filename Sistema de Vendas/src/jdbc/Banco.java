@@ -26,7 +26,7 @@ public class Banco {
          
             return conexao;
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao se conectar no servidor: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao se conectar com o banco de dados " + erro.getMessage());
         }
         return null;
     }
