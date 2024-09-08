@@ -151,9 +151,9 @@
                                       <Component id="jLabel3" min="-2" pref="37" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtNome" min="-2" pref="299" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnPesquisar" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="338" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnPesquisar" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="304" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -212,7 +212,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnPesquisar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="btnPesquisar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -285,6 +285,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnPesquisar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/buscar_1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
               </Properties>
               <Events>
@@ -529,7 +532,7 @@
                           <Component id="jLabel15" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="260" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="242" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -544,6 +547,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="tbnPesquisaNome">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/buscar_1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
               </Properties>
               <Events>
