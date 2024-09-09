@@ -5,6 +5,9 @@
  */
 package view;
 
+import dao.ClientesDAO;
+import model.Clientes;
+
 /**
  *
  * @author rodolpho
@@ -205,7 +208,7 @@ public class FomularioCliente extends javax.swing.JFrame {
             }
         });
 
-        cbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         cbUF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbUFActionPerformed(evt);
@@ -490,7 +493,24 @@ public class FomularioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+      Clientes obj = new Clientes();
+      obj.setNome(txtNome.getText());
+      obj.setRg(txtRG.getText());
+      obj.setCpf(txtCPF.getText());
+      obj.setEmail(txtEmail.getText());
+      obj.setTelefone(txtTelefone.getText());
+      obj.setCelular(txtCelular.getText());
+      obj.setCep(txtCep.getText());
+      obj.setEndereco(txtEndereco.getText());
+      obj.setNumero(Integer.valueOf(txtNumero.getText()));
+      obj.setComplemento(txtComplemento.getText());
+      obj.setBairro(txtBairro.getText());
+      obj.setCidade(txtCidade.getText());
+      obj.setEstado(cbUF.getSelectedItem().toString());
+   
+      ClientesDAO dao = new ClientesDAO();
+      dao.Salvar(obj);
+      
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
