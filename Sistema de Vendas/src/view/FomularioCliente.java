@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import dao.ClientesDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Clientes;
 import utilitarios.Utilitarios;
 
@@ -19,6 +17,36 @@ public class FomularioCliente extends javax.swing.JFrame {
     /**
      * Creates new form FomularioCliente
      */
+    public void listar(){
+    ClientesDAO dao = new ClientesDAO();
+    List<Clientes> lista = dao.listar();
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        dados.setNumRows(0);
+        for(Clientes c: lista){
+            dados.addRow(new Object[]{
+            c.getId(),
+            c.getNome(),
+            c.getRg(),
+            c.getCpf(),
+            c.getEmail(),
+            c.getTelefone(),
+            c.getCelular(),
+            c.getCep(),
+            c.getEndereco(),
+            c.getNumero(),
+            c.getComplemento(),
+            c.getBairro(),
+            c.getCidade(),
+            c.getEstado()
+        });
+           
+        }
+        
+    }
+        
+   
+    
     public FomularioCliente() {
         initComponents();
     }
@@ -73,6 +101,11 @@ public class FomularioCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -617,6 +650,10 @@ public class FomularioCliente extends javax.swing.JFrame {
     private void cbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbUFActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        listar();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
