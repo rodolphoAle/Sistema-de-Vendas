@@ -576,6 +576,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPesquisaNome">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesquisaNomeKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="tbnPesquisaNome">
               <Properties>

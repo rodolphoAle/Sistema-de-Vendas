@@ -448,6 +448,12 @@ public class FomularioCliente extends javax.swing.JFrame {
 
         jLabel15.setText("Nome:");
 
+        txtPesquisaNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaNomeKeyReleased(evt);
+            }
+        });
+
         tbnPesquisaNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/buscar_1.png"))); // NOI18N
         tbnPesquisaNome.setText("Pesquisar");
         tbnPesquisaNome.addActionListener(new java.awt.event.ActionListener() {
@@ -679,6 +685,34 @@ public class FomularioCliente extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         listar();
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtPesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaNomeKeyReleased
+       String nome = "%"+txtPesquisaNome.getText()+"%";
+        ClientesDAO dao = new ClientesDAO();
+    List<Clientes> lista = dao.filtrar(nome);
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        dados.setNumRows(0);
+        for(Clientes c: lista){
+            dados.addRow(new Object[]{
+            c.getId(),
+            c.getNome(),
+            c.getRg(),
+            c.getCpf(),
+            c.getEmail(),
+            c.getTelefone(),
+            c.getCelular(),
+            c.getCep(),
+            c.getEndereco(),
+            c.getNumero(),
+            c.getComplemento(),
+            c.getBairro(),
+            c.getCidade(),
+            c.getEstado()
+        });
+           
+        }
+    }//GEN-LAST:event_txtPesquisaNomeKeyReleased
 
     /**
      * @param args the command line arguments
