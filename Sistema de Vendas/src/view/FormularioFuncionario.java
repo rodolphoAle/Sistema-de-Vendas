@@ -2,11 +2,13 @@
 package view;
 
 import dao.ClientesDAO;
+import dao.FuncionariosDAO;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Clientes;
+import model.Funcionarios;
 import utilitarios.Utilitarios;
 
 /**
@@ -19,18 +21,21 @@ public class FormularioFuncionario extends javax.swing.JFrame {
      * Creates new form FomularioCliente
      */
     public void listar(){
-    ClientesDAO dao = new ClientesDAO();
-    List<Clientes> lista = dao.Listar();
+        FuncionariosDAO dao = new FuncionariosDAO();
+    List<Funcionarios> lista = dao.Listar();
         
-        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
-        for(Clientes c: lista){
+        for(Funcionarios c: lista){
             dados.addRow(new Object[]{
             c.getId(),
             c.getNome(),
             c.getRg(),
             c.getCpf(),
             c.getEmail(),
+            c.getSenha(),
+            c.getCargo(),
+            c.getNivel_acesso(),
             c.getTelefone(),
             c.getCelular(),
             c.getCep(),
@@ -105,7 +110,7 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         txtPesquisaNome = new javax.swing.JTextField();
         tbnPesquisaNome = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tabelaFuncionarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulario Cliente");
@@ -531,20 +536,20 @@ public class FormularioFuncionario extends javax.swing.JFrame {
             }
         });
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nome", "Rg", "Cpf", "Email", "Telefone", "Celular", "Cep", "Endereco", "Numero", "Complemento", "Bairro", "Cidade", "UF"
+                "Id", "Nome", "Rg", "Cpf", "Email", "senha", "cargo", "nivel", "Telefone", "Celular", "Cep", "Endereco", "Numero", "Complemento", "Bairro", "Cidade", "UF"
             }
         ));
-        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaClientesMouseClicked(evt);
+                tabelaFuncionariosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabelaClientes);
+        jScrollPane1.setViewportView(tabelaFuncionarios);
 
         javax.swing.GroupLayout painel_consulta_clienteLayout = new javax.swing.GroupLayout(painel_consulta_cliente);
         painel_consulta_cliente.setLayout(painel_consulta_clienteLayout);
@@ -600,7 +605,7 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         ClientesDAO dao = new ClientesDAO();
     List<Clientes> lista = dao.Filtrar(nome);
         
-        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
         for(Clientes c: lista){
             dados.addRow(new Object[]{
@@ -632,7 +637,7 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         ClientesDAO dao = new ClientesDAO();
     List<Clientes> lista = dao.Filtrar(nome);
         
-        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
         for(Clientes c: lista){
             dados.addRow(new Object[]{
@@ -655,23 +660,23 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPesquisaNomeKeyReleased
 
-    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+    private void tabelaFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionariosMouseClicked
         painel_guias.setSelectedIndex(0);
-        txtCodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),0).toString());
-        txtNome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),1).toString());
-        txtRG.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),2).toString());
-        txtCPF.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),3).toString());
-        txtEmail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),4).toString());
-        txtTelefone.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),5).toString());
-        txtCelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),6).toString());
-        txtCep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),7).toString());
-        txtEndereco.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),8).toString());
-        txtNumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),9).toString());
-        txtComplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),10).toString());
-        txtBairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),11).toString());
-        txtCidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),12).toString());
-        cbUF.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),13).toString());
-    }//GEN-LAST:event_tabelaClientesMouseClicked
+        txtCodigo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),0).toString());
+        txtNome.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),1).toString());
+        txtRG.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),2).toString());
+        txtCPF.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),3).toString());
+        txtEmail.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),4).toString());
+        txtTelefone.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),5).toString());
+        txtCelular.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),6).toString());
+        txtCep.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),7).toString());
+        txtEndereco.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),8).toString());
+        txtNumero.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),9).toString());
+        txtComplemento.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),10).toString());
+        txtBairro.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),11).toString());
+        txtCidade.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),12).toString());
+        cbUF.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(),13).toString());
+    }//GEN-LAST:event_tabelaFuncionariosMouseClicked
 
     private void txtSenha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenha1ActionPerformed
         // TODO add your handling code here:
@@ -945,7 +950,7 @@ public class FormularioFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel painel_consulta_cliente;
     private javax.swing.JPanel painel_dados_pessoais;
     private javax.swing.JTabbedPane painel_guias;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JTable tabelaFuncionarios;
     private javax.swing.JButton tbnPesquisaNome;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCPF;
