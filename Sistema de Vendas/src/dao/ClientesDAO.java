@@ -23,6 +23,7 @@ public class ClientesDAO {
         this.conn= new Banco().getConexao();
     
     }
+    // metodo para salvar clientes no bando de dados
     public void Salvar(Clientes obj){
         
         try {
@@ -61,6 +62,7 @@ public class ClientesDAO {
         }
         
     }
+    // metodo para Editar clientes no banco de dados
     public void Editar(Clientes obj){
         
         try {
@@ -102,6 +104,7 @@ public class ClientesDAO {
         }
         
     }
+    //metodo para excluir  cliente no banco de dados
     public void Excluir(Clientes obj){
     
         try {
@@ -119,6 +122,7 @@ public class ClientesDAO {
             JOptionPane.showMessageDialog(null,"Erro ao excluir o cliente"+erro.getMessage());
         }
     }
+    // metod para buscar o cliente no banco de dados
     public Clientes buscarCliente(String nome){
        
         try {
@@ -149,8 +153,8 @@ public class ClientesDAO {
         }
         return null;
     }
-    
-    public List<Clientes>listar(){
+    //metodo para listar o cliente na tabela de clientes na aba de consultar clientes
+    public List<Clientes>Listar(){
        List<Clientes> lista = new ArrayList<>();
        
         try {
@@ -184,8 +188,8 @@ public class ClientesDAO {
         }
         return null;
     }
-    
-    public List<Clientes>filtrar(String nome){
+    // metodo para filtrar o cliente em tempo de digitação e filtra a tabela no banco de dados
+    public List<Clientes>Filtrar(String nome){
        List<Clientes> lista = new ArrayList<>();
        
         try {

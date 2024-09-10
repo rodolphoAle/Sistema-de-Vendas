@@ -20,7 +20,7 @@ public class FomularioCliente extends javax.swing.JFrame {
      */
     public void listar(){
     ClientesDAO dao = new ClientesDAO();
-    List<Clientes> lista = dao.listar();
+    List<Clientes> lista = dao.Listar();
         
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
@@ -100,7 +100,8 @@ public class FomularioCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Formulario Cliente");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -533,6 +534,7 @@ public class FomularioCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -689,7 +691,7 @@ public class FomularioCliente extends javax.swing.JFrame {
         
         String nome = "%"+txtPesquisaNome.getText()+"%";
         ClientesDAO dao = new ClientesDAO();
-    List<Clientes> lista = dao.filtrar(nome);
+    List<Clientes> lista = dao.Filtrar(nome);
         
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
@@ -725,7 +727,7 @@ public class FomularioCliente extends javax.swing.JFrame {
     private void txtPesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaNomeKeyReleased
        String nome = "%"+txtPesquisaNome.getText()+"%";
         ClientesDAO dao = new ClientesDAO();
-    List<Clientes> lista = dao.filtrar(nome);
+    List<Clientes> lista = dao.Filtrar(nome);
         
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
