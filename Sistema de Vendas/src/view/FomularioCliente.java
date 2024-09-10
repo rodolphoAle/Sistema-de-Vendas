@@ -58,7 +58,7 @@ public class FomularioCliente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tab1 = new javax.swing.JTabbedPane();
+        painel_guias = new javax.swing.JTabbedPane();
         painel_dados_pessoais = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
@@ -450,7 +450,7 @@ public class FomularioCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tab1.addTab("Dados Pessoais", painel_dados_pessoais);
+        painel_guias.addTab("Dados Pessoais", painel_dados_pessoais);
 
         jLabel15.setText("Nome:");
 
@@ -476,6 +476,11 @@ public class FomularioCliente extends javax.swing.JFrame {
                 "Id", "Nome", "E-mail", "Celular", "Telefone", "Cep", "Endereço", "Numero", "Bairro", "Cidade", "Complemento", "UF", "RG", "CPF"
             }
         ));
+        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaClientes);
 
         javax.swing.GroupLayout painel_consulta_clienteLayout = new javax.swing.GroupLayout(painel_consulta_cliente);
@@ -507,21 +512,21 @@ public class FomularioCliente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
         );
 
-        tab1.addTab("Consulta de Clientes", painel_consulta_cliente);
+        painel_guias.addTab("Consulta de Clientes", painel_consulta_cliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tab1)
+            .addComponent(painel_guias)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab1))
+                .addComponent(painel_guias))
         );
 
         pack();
@@ -754,6 +759,24 @@ public class FomularioCliente extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_txtNomeKeyPressed
 
+    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+        painel_guias.setSelectedIndex(0);
+        txtCodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),0).toString());
+        txtNome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),1).toString());
+        txtRG.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),2).toString());
+        txtCPF.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),3).toString());
+        txtEmail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),4).toString());
+        txtTelefone.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),5).toString());
+        txtCelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),6).toString());
+        txtCep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),7).toString());
+        txtEndereco.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),8).toString());
+        txtNumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),9).toString());
+        txtComplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),10).toString());
+        txtBairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),11).toString());
+        txtCidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),12).toString());
+        cbUF.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),13).toString());
+    }//GEN-LAST:event_tabelaClientesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -816,7 +839,7 @@ public class FomularioCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painel_consulta_cliente;
     private javax.swing.JPanel painel_dados_pessoais;
-    private javax.swing.JTabbedPane tab1;
+    private javax.swing.JTabbedPane painel_guias;
     private javax.swing.JTable tabelaClientes;
     private javax.swing.JButton tbnPesquisaNome;
     private javax.swing.JTextField txtBairro;
