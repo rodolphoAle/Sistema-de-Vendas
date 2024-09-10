@@ -300,6 +300,11 @@ public class FomularioCliente extends javax.swing.JFrame {
 
         btnExluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
         btnExluir.setText("EXCLUIR");
+        btnExluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExluirActionPerformed(evt);
+            }
+        });
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/printer.png"))); // NOI18N
         btnImprimir.setText("IMPRIMIR");
@@ -796,6 +801,17 @@ public class FomularioCliente extends javax.swing.JFrame {
         txtCidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),12).toString());
         cbUF.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),13).toString());
     }//GEN-LAST:event_tabelaClientesMouseClicked
+
+    private void btnExluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExluirActionPerformed
+        Clientes obj = new Clientes();
+        
+        obj.setId(Integer.valueOf(txtCodigo.getText()));
+        ClientesDAO dao = new ClientesDAO();
+        dao.Excluir(obj);
+        
+        Utilitarios util = new Utilitarios();
+        util.LimpaTela(painel_dados_pessoais);
+    }//GEN-LAST:event_btnExluirActionPerformed
 
     /**
      * @param args the command line arguments
