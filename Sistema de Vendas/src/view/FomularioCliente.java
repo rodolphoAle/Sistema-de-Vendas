@@ -2,6 +2,7 @@
 package view;
 
 import dao.ClientesDAO;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -142,6 +143,11 @@ public class FomularioCliente extends javax.swing.JFrame {
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
+            }
+        });
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
             }
         });
 
@@ -713,6 +719,40 @@ public class FomularioCliente extends javax.swing.JFrame {
            
         }
     }//GEN-LAST:event_txtPesquisaNomeKeyReleased
+
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            String nome = txtNome.getText();
+        
+        Clientes obj = new Clientes();
+        ClientesDAO dao = new ClientesDAO();
+        
+        obj = dao.buscarCliente(nome);
+        
+        if(obj.getNome()==null){
+            JOptionPane.showMessageDialog(null,"Cliente  não encontrado!");
+        
+    }     
+        
+        if(obj.getNome()!= null){
+            
+            txtCodigo.setText(String.valueOf(obj.getId()));
+            txtNome.setText(obj.getNome());
+            txtRG.setText(obj.getRg());
+            txtCPF.setText(obj.getCpf());
+            txtEmail.setText(obj.getEmail());
+            txtTelefone.setText(obj.getTelefone());
+            txtCelular.setText(obj.getCelular());
+            txtCep.setText(obj.getCep());
+            txtEndereco.setText(obj.getEndereco());
+            txtNumero.setText(String.valueOf(obj.getNumero()));
+            txtComplemento.setText(obj.getComplemento());
+            txtBairro.setText(obj.getBairro());
+            txtCidade.setText(obj.getCidade());
+            cbUF.setSelectedItem(obj.getEstado());
+        }
+      }
+    }//GEN-LAST:event_txtNomeKeyPressed
 
     /**
      * @param args the command line arguments
