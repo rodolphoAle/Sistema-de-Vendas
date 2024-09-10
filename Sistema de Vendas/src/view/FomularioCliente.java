@@ -395,7 +395,7 @@ public class FomularioCliente extends javax.swing.JFrame {
                                                 .addComponent(jLabel14)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addContainerGap(146, Short.MAX_VALUE))))
+                        .addContainerGap(394, Short.MAX_VALUE))))
         );
         painel_dados_pessoaisLayout.setVerticalGroup(
             painel_dados_pessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +473,7 @@ public class FomularioCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "E-mail", "Celular", "Telefone", "Cep", "Endereço", "Numero", "Bairro", "Cidade", "Complemento", "UF", "RG", "CPF"
+                "Id", "Nome", "Rg", "Cpf", "Email", "Telefone", "Celular", "Cep", "Endereco", "Numero", "Complemento", "Bairro", "Cidade", "UF"
             }
         ));
         tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -494,10 +494,8 @@ public class FomularioCliente extends javax.swing.JFrame {
                 .addComponent(txtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(tbnPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(painel_consulta_clienteLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 111, Short.MAX_VALUE))
+                .addContainerGap(713, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         painel_consulta_clienteLayout.setVerticalGroup(
             painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,8 +506,8 @@ public class FomularioCliente extends javax.swing.JFrame {
                         .addComponent(txtPesquisaNome)
                         .addComponent(tbnPesquisaNome))
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
         );
 
         painel_guias.addTab("Consulta de Clientes", painel_consulta_cliente);
@@ -537,7 +535,29 @@ public class FomularioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+          Clientes obj = new Clientes();
+      obj.setNome(txtNome.getText());
+      obj.setRg(txtRG.getText());
+      obj.setCpf(txtCPF.getText());
+      obj.setEmail(txtEmail.getText());
+      obj.setTelefone(txtTelefone.getText());
+      obj.setCelular(txtCelular.getText());
+      obj.setCep(txtCep.getText());
+      obj.setEndereco(txtEndereco.getText());
+      obj.setNumero(Integer.valueOf(txtNumero.getText()));
+      obj.setComplemento(txtComplemento.getText());
+      obj.setBairro(txtBairro.getText());
+      obj.setCidade(txtCidade.getText());
+      obj.setEstado(cbUF.getSelectedItem().toString());
+      obj.setId(Integer.valueOf(txtCodigo.getText()));
+   
+      
+      // salvando novo cliente
+      ClientesDAO dao = new ClientesDAO();
+      dao.Editar(obj);
+      //limpando a tela para uma nova consulta,
+       Utilitarios util = new Utilitarios();
+        util.LimpaTela(painel_dados_pessoais);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
