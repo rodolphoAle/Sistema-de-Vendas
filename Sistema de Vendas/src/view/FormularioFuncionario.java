@@ -160,6 +160,9 @@ public class FormularioFuncionario extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNomeKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
+            }
         });
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/buscar_1.png"))); // NOI18N
@@ -837,8 +840,8 @@ public class FormularioFuncionario extends javax.swing.JFrame {
             txtRG.setText(obj.getRg());
             txtCPF.setText(obj.getCpf());
             txtEmail.setText(obj.getEmail());
-            txtEmail.setText(obj.getSenha());
-            txtEmail.setText(obj.getCargo());
+            txtSenha.setText(obj.getSenha());
+            txtCargo.setText(obj.getCargo());
             cbNivelAcesso.setSelectedItem(obj.getNivel_acesso());
             txtTelefone.setText(obj.getTelefone());
             txtCelular.setText(obj.getCelular());
@@ -872,8 +875,8 @@ public class FormularioFuncionario extends javax.swing.JFrame {
             txtRG.setText(obj.getRg());
             txtCPF.setText(obj.getCpf());
             txtEmail.setText(obj.getEmail());
-            txtEmail.setText(obj.getSenha());
-            txtEmail.setText(obj.getCargo());
+            txtSenha.setText(obj.getSenha());
+            txtCargo.setText(obj.getCargo());
             cbNivelAcesso.setSelectedItem(obj.getNivel_acesso());
             txtTelefone.setText(obj.getTelefone());
             txtCelular.setText(obj.getCelular());
@@ -907,6 +910,37 @@ public class FormularioFuncionario extends javax.swing.JFrame {
     private void txtPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPesquisaNomeActionPerformed
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+       String nome = "%"+txtPesquisaNome.getText()+"%";
+        FuncionariosDAO dao = new FuncionariosDAO();
+    List<Funcionarios> lista = dao.Filtrar(nome);
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
+        dados.setNumRows(0);
+        for(Funcionarios c: lista){
+            dados.addRow(new Object[]{
+            c.getId(),
+            c.getNome(),
+            c.getRg(),
+            c.getCpf(),
+            c.getEmail(),
+            c.getSenha(),
+            c.getCargo(),
+            c.getNivel_acesso(),
+            c.getTelefone(),
+            c.getCelular(),
+            c.getCep(),
+            c.getEndereco(),
+            c.getNumero(),
+            c.getComplemento(),
+            c.getBairro(),
+            c.getCidade(),
+            c.getEstado()
+        });
+           
+        }
+    }//GEN-LAST:event_txtNomeKeyReleased
 
     /**
      * @param args the command line arguments
