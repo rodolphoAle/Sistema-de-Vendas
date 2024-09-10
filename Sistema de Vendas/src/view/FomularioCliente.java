@@ -460,6 +460,11 @@ public class FomularioCliente extends javax.swing.JFrame {
 
         jLabel15.setText("Nome:");
 
+        txtPesquisaNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaNomeActionPerformed(evt);
+            }
+        });
         txtPesquisaNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaNomeKeyReleased(evt);
@@ -814,6 +819,10 @@ public class FomularioCliente extends javax.swing.JFrame {
         Utilitarios util = new Utilitarios();
         util.LimpaTela(painel_dados_pessoais);
     }//GEN-LAST:event_btnExluirActionPerformed
+
+    private void txtPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaNomeActionPerformed
 
     /**
      * @param args the command line arguments

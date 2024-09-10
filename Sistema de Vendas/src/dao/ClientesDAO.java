@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import jdbc.Banco;
 import model.Clientes;
 
+
 /**
  *
  * @author rodolpho
@@ -31,7 +32,7 @@ public class ClientesDAO {
             
 
             String sql = "INSERT INTO tb_clientes(nome,rg,cpf,email,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado)"
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             //preparar conexao sql para se conectar ao banco
             
@@ -47,8 +48,8 @@ public class ClientesDAO {
             stmt.setString(8,obj.getEndereco());
             stmt.setInt(9,obj.getNumero());
             stmt.setString(10,obj.getComplemento());
-            stmt.setString(12,obj.getBairro());
-            stmt.setString(11,obj.getCidade());
+            stmt.setString(11,obj.getBairro());
+            stmt.setString(12,obj.getCidade());
             stmt.setString(13,obj.getEstado());
             
             // executa SQL

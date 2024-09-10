@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.Banco;
-import model.Clientes;
 import model.Funcionarios;
 
 /**
@@ -25,14 +24,16 @@ public class FuncionariosDAO {
     
     }
     // metodo para salvar clientes no bando de dados
-    public void Salvar(Clientes obj){
+    public void Salvar(Funcionarios obj){
         
         try {
             //criando o SQL
             
 
-            String sql = "INSERT INTO tb_clientes(nome,rg,cpf,email,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado)"
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO tb_funcionarios(nome,rg,cpf,email,senha,"
+                    + "cargo,nivel_acesso,telefone,celular,cep,endereco,numero,"
+                    + "complemento,bairro,cidade,estado)"
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             //preparar conexao sql para se conectar ao banco
             
@@ -42,36 +43,39 @@ public class FuncionariosDAO {
             stmt.setString(2,obj.getRg());
             stmt.setString(3,obj.getCpf());
             stmt.setString(4,obj.getEmail());
-            stmt.setString(5,obj.getTelefone());
-            stmt.setString(6,obj.getCelular());
-            stmt.setString(7,obj.getCep());
-            stmt.setString(8,obj.getEndereco());
-            stmt.setInt(9,obj.getNumero());
-            stmt.setString(10,obj.getComplemento());
-            stmt.setString(12,obj.getBairro());
-            stmt.setString(11,obj.getCidade());
-            stmt.setString(13,obj.getEstado());
+             stmt.setString(5,obj.getSenha());
+            stmt.setString(6,obj.getCargo());
+            stmt.setString(7,obj.getNivel_acesso());
+            stmt.setString(8,obj.getTelefone());
+            stmt.setString(9,obj.getCelular());
+            stmt.setString(10,obj.getCep());
+            stmt.setString(11,obj.getEndereco());
+            stmt.setInt(12,obj.getNumero());
+            stmt.setString(13,obj.getComplemento());
+            stmt.setString(14,obj.getBairro());
+            stmt.setString(15,obj.getCidade());
+            stmt.setString(16,obj.getEstado());
             
             // executa SQL
             stmt.execute();
             //fecha conecxao
             stmt.close();
-            JOptionPane.showMessageDialog(null,"Cliente salvo com sucesso");
+            JOptionPane.showMessageDialog(null,"Funcionario salvo com sucesso");
         } catch (SQLException erro) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao salvar o Cliente "+erro.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao salvar o Funcionario "+erro.getMessage());
         }
         
     }
     // metodo para Editar clientes no banco de dados
-    public void Editar(Clientes obj){
+    public void Editar(Funcionarios obj){
         
         try {
             //criando o SQL
             
 
-            String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,"
-                    + "telefone=?,celular=?,cep=?,endereco=?,numero=?,"
+            String sql = "update tb_funcionarios set nome=?,rg=?,cpf=?,email=?,senha=?,"
+                    + "cargo=?,nivel_acesso=?,telefone=?,celular=?,cep=?,endereco=?,numero=?,"
                     + "complemento=?,bairro=?,cidade=?,estado=? where id=?";
                     
             
@@ -83,33 +87,36 @@ public class FuncionariosDAO {
             stmt.setString(2,obj.getRg());
             stmt.setString(3,obj.getCpf());
             stmt.setString(4,obj.getEmail());
-            stmt.setString(5,obj.getTelefone());
-            stmt.setString(6,obj.getCelular());
-            stmt.setString(7,obj.getCep());
-            stmt.setString(8,obj.getEndereco());
-            stmt.setInt(9,obj.getNumero());
-            stmt.setString(10,obj.getComplemento());
-            stmt.setString(12,obj.getBairro());
-            stmt.setString(11,obj.getCidade());
-            stmt.setString(13,obj.getEstado());
-            stmt.setInt(14,obj.getId());
+            stmt.setString(5,obj.getSenha());
+            stmt.setString(6,obj.getCargo());
+            stmt.setString(7,obj.getNivel_acesso());
+            stmt.setString(8,obj.getTelefone());
+            stmt.setString(9,obj.getCelular());
+            stmt.setString(10,obj.getCep());
+            stmt.setString(11,obj.getEndereco());
+            stmt.setInt(12,obj.getNumero());
+            stmt.setString(13,obj.getComplemento());
+            stmt.setString(14,obj.getBairro());
+            stmt.setString(15,obj.getCidade());
+            stmt.setString(16,obj.getEstado());
+            stmt.setInt(17,obj.getId());
             
             // executa SQL
             stmt.execute();
             //fecha conecxao
             stmt.close();
-            JOptionPane.showMessageDialog(null,"Cliente Editado com sucesso");
+            JOptionPane.showMessageDialog(null,"Funcionario Editado com sucesso");
         } catch (SQLException erro) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao Editar o Cliente "+erro.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao Editar o Funcionario "+erro.getMessage());
         }
         
     }
     //metodo para excluir  cliente no banco de dados
-    public void Excluir(Clientes obj){
+    public void Excluir(Funcionarios obj){
     
         try {
-            String sql= "delete from tb_clientes where id = ?";
+            String sql= "delete from tb_funcionarios where id = ?";
             
             PreparedStatement stmt=conn.prepareStatement(sql);
             
@@ -117,27 +124,30 @@ public class FuncionariosDAO {
             stmt.execute();
             stmt.close();
             
-            JOptionPane.showMessageDialog(null,"Cliente excluido com sucesso");
+            JOptionPane.showMessageDialog(null,"Funcionario excluido com sucesso");
         } catch (SQLException erro) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao excluir o cliente"+erro.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao excluir o Funcionario"+erro.getMessage());
         }
     }
     // metod para buscar o cliente no banco de dados
-    public Clientes buscarCliente(String nome){
+    public Funcionarios buscarFuncionario(String nome){
        
         try {
-            String sql = "SELECT * FROM tb_clientes WHERE nome=?";
+            String sql = "SELECT * FROM tb_funcionarios WHERE nome=?";
             PreparedStatement stmt=conn.prepareStatement(sql);
             stmt.setString(1,nome);
             ResultSet rs = stmt.executeQuery();
-            Clientes obj = new Clientes();
+            Funcionarios obj = new Funcionarios();
             if(rs.next()){
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
                 obj.setRg(rs.getString("rg"));
                 obj.setCpf(rs.getString("cpf"));
                 obj.setEmail(rs.getString("email"));
+                obj.setSenha(rs.getString("senha"));
+                obj.setCargo(rs.getString("cargo"));
+                obj.setNivel_acesso(rs.getString("nivel_acesso"));
                 obj.setTelefone(rs.getString("telefone"));
                 obj.setCelular(rs.getString("celular"));
                 obj.setCep(rs.getString("cep"));
@@ -150,7 +160,7 @@ public class FuncionariosDAO {
             }
             return obj;
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro ao buscar o cliente " +erro.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao buscar o Funcionario " +erro.getMessage());
         }
         return null;
     }
@@ -193,23 +203,26 @@ public class FuncionariosDAO {
         return null;
     }
     // metodo para filtrar o cliente em tempo de digitação e filtra a tabela no banco de dados
-    public List<Clientes>Filtrar(String nome){
-       List<Clientes> lista = new ArrayList<>();
+    public List<Funcionarios>Filtrar(String nome){
+       List<Funcionarios> lista = new ArrayList<>();
        
         try {
-            String sql= "select * from tb_clientes where nome like ?";
+            String sql= "select * from tb_funcionarios where nome like ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,nome);
             ResultSet rs= stmt.executeQuery();
             
             while(rs.next()){
                 
-                Clientes obj = new Clientes();
+                Funcionarios obj = new Funcionarios();
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
                 obj.setRg(rs.getString("rg"));
                 obj.setCpf(rs.getString("cpf"));
                 obj.setEmail(rs.getString("email"));
+                obj.setSenha(rs.getString("senha"));
+                obj.setCargo(rs.getString("cargo"));
+                obj.setNivel_acesso(rs.getString("nivel_acesso"));
                 obj.setTelefone(rs.getString("telefone"));
                 obj.setCelular(rs.getString("celular"));
                 obj.setCep(rs.getString("cep"));
