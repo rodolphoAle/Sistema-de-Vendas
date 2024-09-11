@@ -38,6 +38,6 @@ Descreve as classes principais e suas relações, como Produto, Venda, e Estoque
 ### • Diagrama de Sequência: 
 Mostra a interação entre os objetos durante o processo de venda e atualização de
 estoque.
-## • Diagrama de Estado: 
+### • Diagrama de Estado: 
 Representa os diferentes estados dos produtos no sistema, como disponível, em baixa e
 esgotado.
