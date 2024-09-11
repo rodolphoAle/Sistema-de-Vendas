@@ -98,6 +98,11 @@ public class AreaaTrabalho extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Formulario de Funcionários");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -107,6 +112,11 @@ public class AreaaTrabalho extends javax.swing.JFrame {
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Formulario de Fornecedores");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem3);
 
         jMenuBar1.add(jMenu3);
@@ -176,7 +186,8 @@ public class AreaaTrabalho extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        FomularioCliente fc = new FomularioCliente();
+        fc.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -186,6 +197,16 @@ public class AreaaTrabalho extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         this.setExtendedState(MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowActivated
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       FormularioFuncionario fc = new FormularioFuncionario();
+       fc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       FormularioFornecedor fc = new FormularioFornecedor();
+       fc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
