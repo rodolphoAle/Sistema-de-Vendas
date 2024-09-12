@@ -78,6 +78,8 @@ public class FomularioProdutos extends javax.swing.JFrame {
         tbnPesquisaProduto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProdutos = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        cbListaFornecedor = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulario Produtos");
@@ -162,11 +164,6 @@ public class FomularioProdutos extends javax.swing.JFrame {
                 cbFornecedorAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        cbFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbFornecedorMouseClicked(evt);
             }
         });
         cbFornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -338,19 +335,48 @@ public class FomularioProdutos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaProdutos);
 
+        jLabel5.setText("Fornecedor:");
+
+        cbListaFornecedor.setToolTipText("");
+        cbListaFornecedor.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbListaFornecedorAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        cbListaFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbListaFornecedorMouseClicked(evt);
+            }
+        });
+        cbListaFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbListaFornecedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_consulta_produtoLayout = new javax.swing.GroupLayout(painel_consulta_produto);
         painel_consulta_produto.setLayout(painel_consulta_produtoLayout);
         painel_consulta_produtoLayout.setHorizontalGroup(
             painel_consulta_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
             .addGroup(painel_consulta_produtoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tbnPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painel_consulta_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel_consulta_produtoLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tbnPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_consulta_produtoLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbListaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(373, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
         );
         painel_consulta_produtoLayout.setVerticalGroup(
             painel_consulta_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +388,11 @@ public class FomularioProdutos extends javax.swing.JFrame {
                         .addComponent(tbnPesquisaProduto))
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
+                .addGroup(painel_consulta_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbListaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
         );
 
         painel_guias.addTab("Consulta de Produtos", painel_consulta_produto);
@@ -474,27 +504,17 @@ public class FomularioProdutos extends javax.swing.JFrame {
     private void tbnPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnPesquisaProdutoActionPerformed
         
         String nome = "%"+txtPesquisaProduto.getText()+"%";
-        ClientesDAO dao = new ClientesDAO();
-    List<Clientes> lista = dao.Filtrar(nome);
-        
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.Filtrar(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
-        for(Clientes c: lista){
+        for(Produtos c: lista){
             dados.addRow(new Object[]{
             c.getId(),
-            c.getNome(),
-            c.getRg(),
-            c.getCpf(),
-            c.getEmail(),
-            c.getTelefone(),
-            c.getCelular(),
-            c.getCep(),
-            c.getEndereco(),
-            c.getNumero(),
-            c.getComplemento(),
-            c.getBairro(),
-            c.getCidade(),
-            c.getEstado()
+            c.getDescricao(),
+            c.getPreco(),
+            c.getQtdEstoque(),
+            c.getFornecedores().getNome()
         });
            
         }
@@ -509,28 +529,18 @@ public class FomularioProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void txtPesquisaProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaProdutoKeyReleased
-       String nome = "%"+txtPesquisaProduto.getText()+"%";
-        ClientesDAO dao = new ClientesDAO();
-    List<Clientes> lista = dao.Filtrar(nome);
-        
+      String nome = "%"+txtPesquisaProduto.getText()+"%";
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.Filtrar(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
-        for(Clientes c: lista){
+        for(Produtos c: lista){
             dados.addRow(new Object[]{
             c.getId(),
-            c.getNome(),
-            c.getRg(),
-            c.getCpf(),
-            c.getEmail(),
-            c.getTelefone(),
-            c.getCelular(),
-            c.getCep(),
-            c.getEndereco(),
-            c.getNumero(),
-            c.getComplemento(),
-            c.getBairro(),
-            c.getCidade(),
-            c.getEstado()
+            c.getDescricao(),
+            c.getPreco(),
+            c.getQtdEstoque(),
+            c.getFornecedores().getNome()
         });
            
         }
@@ -592,6 +602,16 @@ public class FomularioProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaProdutoActionPerformed
 
     private void cbFornecedorAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbFornecedorAncestorAdded
+        FornecedoresDAO dao = new FornecedoresDAO();
+        List<Fornecedores> lista = dao.Listar();
+        cbFornecedor.removeAllItems();
+        
+        for(Fornecedores f : lista){
+            
+            cbFornecedor.addItem(f);
+            
+    };
+    
         
     }//GEN-LAST:event_cbFornecedorAncestorAdded
 
@@ -599,16 +619,61 @@ public class FomularioProdutos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaProdutosMouseEntered
 
-    private void cbFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbFornecedorMouseClicked
+    private void cbListaFornecedorAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbListaFornecedorAncestorAdded
         FornecedoresDAO dao = new FornecedoresDAO();
+        List<Fornecedores> lista = dao.Listar();
+        cbListaFornecedor.removeAllItems();
         
-        List<Fornecedores> lista=dao.Listar();
-        cbFornecedor.removeAllItems();
+        cbListaFornecedor.addItem("Todos");
         for(Fornecedores f : lista){
             
-            cbFornecedor.addItem(f);
+            cbListaFornecedor.addItem(f);
+            
+    };
+    
+    
+    }//GEN-LAST:event_cbListaFornecedorAncestorAdded
+private void atualizarTabela(List<Produtos> produtos) {
+    DefaultTableModel modeloTabela = (DefaultTableModel) tabelaProdutos.getModel();
+    modeloTabela.setRowCount(0); // Limpa as linhas existentes
+    
+    for (Produtos p : produtos) {
+        modeloTabela.addRow(new Object[]{
+            p.getId(),
+            p.getDescricao(),
+            p.getPreco(),
+            p.getQtdEstoque(),
+            p.getFornecedores().getNome()
+        });
+    }
+}
+
+    private void cbListaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListaFornecedorActionPerformed
+    Object itemSelecionado = cbListaFornecedor.getSelectedItem();
+    
+    ProdutosDAO dao = new ProdutosDAO();
+    
+    if (itemSelecionado != null) {
+        if (itemSelecionado.equals("Todos")) {
+            // Se "Todos" for selecionado, exiba todos os produtos
+            List<Produtos> todosProdutos = dao.Listar();
+            atualizarTabela(todosProdutos);
+        } else {
+            // Caso contrário, faça o cast para Fornecedores e filtre os produtos
+            Fornecedores fornecedorSelecionado = (Fornecedores) itemSelecionado;
+            List<Produtos> lista = dao.FiltrarPorFornecedor(fornecedorSelecionado.getId());
+            atualizarTabela(lista);
         }
-    }//GEN-LAST:event_cbFornecedorMouseClicked
+    } else {
+        // Caso nenhum fornecedor seja selecionado, exiba todos os produtos
+        List<Produtos> todosProdutos = dao.Listar();
+        atualizarTabela(todosProdutos);
+    }
+    }//GEN-LAST:event_cbListaFornecedorActionPerformed
+
+    private void cbListaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbListaFornecedorMouseClicked
+      
+    }//GEN-LAST:event_cbListaFornecedorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -654,12 +719,14 @@ public class FomularioProdutos extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cbFornecedor;
+    private javax.swing.JComboBox cbListaFornecedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
