@@ -221,4 +221,25 @@ public class FornecedoresDAO {
         return null;
     }
     
+    public Fornecedores buscarPorId(int id) {
+    try {
+        String sql = "SELECT * FROM tb_fornecedores WHERE id=?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        Fornecedores fornecedor = new Fornecedores();
+        
+        if (rs.next()) {
+            fornecedor.setId(rs.getInt("id"));
+          
+            // Atribua outros campos conforme necessário
+        }
+
+        return fornecedor;
+    } catch (SQLException erro) {
+        JOptionPane.showMessageDialog(null, "Erro ao buscar o fornecedor: " + erro.getMessage());
+    }
+    return null;
+}
+
 }

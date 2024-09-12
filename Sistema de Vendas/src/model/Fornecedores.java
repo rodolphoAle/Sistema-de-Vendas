@@ -20,4 +20,6 @@ public class Fornecedores extends Clientes{
         this.cnpj = cnpj;
     }
     
+    
+    
 }
