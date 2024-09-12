@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.Banco;
 import model.Funcionarios;
+import view.AreaaTrabalho;
+import view.FormularioLogin;
 
 /**
  *
@@ -242,4 +244,30 @@ public class FuncionariosDAO {
         return null;
     }
     
+    public void efetuarLogin(String email,String senha){
+        
+        try {
+            String sql = "select * from tb_funcionarios where email=? and senha=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,email);
+            stmt.setString(2,senha);
+            
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null,"Seja bem vindo ao sistema! ");
+                AreaaTrabalho at = new AreaaTrabalho();
+                FormularioLogin fl= new FormularioLogin();
+                at.setVisible(true);
+                fl.setVisible(false);
+            }else{
+                FormularioLogin login = new FormularioLogin();
+                JOptionPane.showMessageDialog(null,"Dados invalidos");
+            }
+            
+        } catch (SQLException erro) {
+            
+            JOptionPane.showMessageDialog(null,"erro no sistema"+erro.getMessage());
+        }
+        
+    }
 }
