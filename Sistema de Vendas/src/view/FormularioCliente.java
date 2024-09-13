@@ -13,10 +13,10 @@ import utilitarios.Utilitarios;
  *
  * @author rodolpho
  */
-public class FomularioCliente extends javax.swing.JFrame {
+public class FormularioCliente extends javax.swing.JFrame {
 
     /**
-     * Creates new form FomularioCliente
+     * Creates new form FormularioCliente
      */
     public void listar(){
     ClientesDAO dao = new ClientesDAO();
@@ -48,7 +48,7 @@ public class FomularioCliente extends javax.swing.JFrame {
         
    
     
-    public FomularioCliente() {
+    public FormularioCliente() {
         initComponents();
     }
 
@@ -841,20 +841,21 @@ public class FomularioCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FomularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FomularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FomularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FomularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FomularioCliente().setVisible(true);
+                new FormularioCliente().setVisible(true);
             }
         });
     }

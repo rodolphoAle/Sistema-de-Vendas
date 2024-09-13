@@ -8,6 +8,7 @@ package view;
 import dao.FuncionariosDAO;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import view.FormularioProdutos;
 
 /**
  *
