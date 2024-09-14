@@ -25,7 +25,7 @@ public class FormularioProdutos extends javax.swing.JFrame {
      */
     public void listar(){
         ProdutosDAO dao = new ProdutosDAO();
-    List<Produtos> lista = dao.Listar();
+        List<Produtos> lista = dao.Listar();
         
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
