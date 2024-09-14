@@ -129,6 +129,30 @@ public class ProdutosDAO {
         }
         return null;
     }
+    public Produtos buscarProdutosPorID(String id){
+       
+        try {
+            String sql = "SELECT * FROM tb_produtos where id=?";
+            PreparedStatement stmt=conn.prepareStatement(sql);
+            stmt.setString(1,id);
+            ResultSet rs = stmt.executeQuery();
+            Produtos obj = new Produtos();
+            if(rs.next()){
+                obj.setId(rs.getInt("id"));
+                obj.setDescricao(rs.getString("descricao"));
+                obj.setPreco(rs.getDouble("preco"));
+                obj.setQtdEstoque(rs.getInt("qtd_estoque"));
+                
+                // buscando o ID do fornecedor
+                
+                
+            }
+            return obj;
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null,"Erro ao buscar Produto por ID " +erro.getMessage());
+        }
+        return null;
+    }
         
     
     //metodo para listar o cliente na tabela de clientes na aba de consultar clientes

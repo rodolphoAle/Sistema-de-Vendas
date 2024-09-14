@@ -285,6 +285,11 @@ public class FormularioVendas extends javax.swing.JFrame {
         jLabel6.setText("Produto:");
 
         txtProduto.setEditable(false);
+        txtProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Preço:");
 
@@ -624,24 +629,28 @@ public class FormularioVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddProdutoActionPerformed
 
     private void btnPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaProdutoActionPerformed
-        String nome = txtCodigoProduto.getText();
-        Clientes obj = new Clientes();
-        ClientesDAO dao = new ClientesDAO();
         
-        obj = dao.buscarCliente(nome);
+        String id = txtCodigoProduto.getText();
+        Produtos obj = new Produtos();
+        ProdutosDAO dao = new ProdutosDAO();
         
-        if(obj.getNome()==null){
-            JOptionPane.showMessageDialog(null,"Cliente  não encontrado!");
+        obj = dao.buscarProdutosPorID(id);
         
-    }     
+        if(obj.getId()==0){
+            JOptionPane.showMessageDialog(null,"Produto não encontrado");        
         
-        if(obj.getNome()!= null){
-            
-            txtCPF.setText(obj.getCpf());
-            txtNome.setText(obj.getNome());
-            
         }
+        if(obj.getId()!=0){
+            txtProduto.setText(obj.getDescricao());
+            txtPreco.setText(String.valueOf(obj.getPreco()));
+            txtQtd_estoque.setText(String.valueOf(obj.getQtdEstoque()));
+        }
+    
     }//GEN-LAST:event_btnPesquisaProdutoActionPerformed
+
+    private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProdutoActionPerformed
 
     /**
      * @param args the command line arguments
