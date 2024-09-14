@@ -4,6 +4,7 @@ package view;
 import dao.ClientesDAO;
 import dao.FornecedoresDAO;
 import dao.ProdutosDAO;
+import java.awt.GraphicsConfiguration;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Clientes;
 import model.Fornecedores;
 import model.Produtos;
+import utilitarios.Utilitarios;
 
 /**
  *
@@ -48,7 +50,16 @@ public class FormularioVendas extends javax.swing.JFrame {
         initComponents();
     }
 
+    public FormularioVendas(GraphicsConfiguration gc) {
+        super(gc);
+    }
+
+        double preco,subtotal,total;
+        int qtd;
+        DefaultTableModel meus_produtos;
     @SuppressWarnings("unchecked")
+    
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -281,6 +292,12 @@ public class FormularioVendas extends javax.swing.JFrame {
         painel_dados_produtos.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Produto"));
 
         jLabel5.setText("Codigo:");
+
+        txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoProdutoKeyPressed(evt);
+            }
+        });
 
         jLabel6.setText("Produto:");
 
@@ -625,7 +642,44 @@ public class FormularioVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_tabela_produtosMouseClicked
 
     private void btnAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProdutoActionPerformed
-        // TODO add your handling code here:
+        String nome =txtProduto.getText();
+        Produtos obj = new Produtos();
+        ProdutosDAO dao = new ProdutosDAO();
+        
+        obj = dao.buscarProdutos(nome);
+        preco = Double.valueOf(txtPreco.getText());
+        if(preco<=0 || obj.getQtdEstoque()<=0 || obj.getDescricao()==null){
+                JOptionPane.showMessageDialog(null,"Não foi possivel adicionar ao carrinho Falta informações.");
+                return;
+            }
+        
+        if(obj.getDescricao()!=null){
+            int estoque = Integer.valueOf(txtQtd_estoque.getText());
+            int quantidade_de_venda = Integer.valueOf(txtQtd_produto.getText());
+            preco = Double.valueOf(txtPreco.getText());
+            quantidade_de_venda= Integer.valueOf(txtQtd_produto.getText());
+            subtotal = preco*quantidade_de_venda;
+            total+=subtotal;
+            
+            
+            if(estoque>=quantidade_de_venda){
+                txtTotalVenda.setText(String.valueOf(total));
+                meus_produtos = (DefaultTableModel)tabela_carrinho.getModel();
+                meus_produtos.addRow(new Object[]{
+                    txtCodigoProduto.getText(),
+                    txtProduto.getText(),
+                    txtQtd_produto.getText(),
+                    txtPreco.getText(),
+                    subtotal
+                
+                });
+            }
+            if(estoque<quantidade_de_venda){
+                JOptionPane.showMessageDialog(null,"A quantidade de produtos e maior que a do estoque");
+            }
+            
+            
+        }
     }//GEN-LAST:event_btnAddProdutoActionPerformed
 
     private void btnPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaProdutoActionPerformed
@@ -651,6 +705,24 @@ public class FormularioVendas extends javax.swing.JFrame {
     private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProdutoActionPerformed
+
+    private void txtCodigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            String id = txtCodigoProduto.getText();
+            Produtos obj = new Produtos();
+            ProdutosDAO dao = new ProdutosDAO();
+
+            obj = dao.buscarProdutosPorID(id);
+            if(obj.getId()==0){
+                JOptionPane.showMessageDialog(null,"Produto não encontrado");        
+            }
+            if(obj.getId()!=0){
+                txtProduto.setText(obj.getDescricao());
+                txtPreco.setText(String.valueOf(obj.getPreco()));
+                txtQtd_estoque.setText(String.valueOf(obj.getQtdEstoque()));
+            }
+        }
+    }//GEN-LAST:event_txtCodigoProdutoKeyPressed
 
     /**
      * @param args the command line arguments
