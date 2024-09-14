@@ -125,6 +125,9 @@ public class FormularioEstoque extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDescricaoKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyReleased(evt);
+            }
         });
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/buscar_1.png"))); // NOI18N
@@ -357,7 +360,7 @@ public class FormularioEstoque extends javax.swing.JFrame {
       obj.setDescricao(txtDescricao.getText());
       obj.setPreco(Double.valueOf(txtQtdAtual.getText()));
       obj.setQtdEstoque(Integer.valueOf(txtQtdAdicional.getText()));
-      obj.setFornecedores((Fornecedores)cbFornecedor.getSelectedItem());
+    
       // salvando novo cliente
       ProdutosDAO dao = new ProdutosDAO();
       dao.salvarProdutos(obj);
@@ -391,7 +394,7 @@ public class FormularioEstoque extends javax.swing.JFrame {
         obj = dao.buscarProdutos(nome);
         
         if(obj.getDescricao()==null){
-            JOptionPane.showMessageDialog(null,"Cliente  não encontrado!");
+            JOptionPane.showMessageDialog(null,"Produto  não encontrado!");
         
     }     
         
@@ -399,9 +402,8 @@ public class FormularioEstoque extends javax.swing.JFrame {
             
             txtCodigo.setText(String.valueOf(obj.getId()));
             txtDescricao.setText(obj.getDescricao());
-            txtQtdAtual.setText(String.valueOf(obj.getPreco()));
-            txtQtdAdicional.setText(String.valueOf(obj.getQtdEstoque()));
-            cbFornecedor.setSelectedItem(String.valueOf(obj.getQtdEstoque()));
+            txtQtdAtual.setText(String.valueOf(obj.getQtdEstoque()));
+            
         }
        
             
@@ -429,17 +431,16 @@ public class FormularioEstoque extends javax.swing.JFrame {
         obj = dao.buscarProdutos(nome);
         
         if(obj.getDescricao()==null){
-            JOptionPane.showMessageDialog(null,"Cliente  não encontrado!");
+            JOptionPane.showMessageDialog(null,"Produto  não encontrado!");
         
-        }     
+    }     
         
         if(obj.getDescricao()!= null){
             
             txtCodigo.setText(String.valueOf(obj.getId()));
             txtDescricao.setText(obj.getDescricao());
-            txtQtdAtual.setText(String.valueOf(obj.getPreco()));
-            txtQtdAdicional.setText(String.valueOf(obj.getQtdEstoque()));
-            cbFornecedor.setSelectedItem(String.valueOf(obj.getQtdEstoque()));
+            txtQtdAtual.setText(String.valueOf(obj.getQtdEstoque()));
+            
         }
     }
     }//GEN-LAST:event_txtDescricaoKeyPressed
@@ -456,7 +457,23 @@ public class FormularioEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExluirActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int qtd_atual, qtd_nova,idProduto;
+            qtd_atual=Integer.valueOf(txtQtdAtual.getText());
+            qtd_nova = Integer.valueOf(txtQtdAdicional.getText());
+            idProduto =Integer.valueOf(txtCodigo.getText());
+            
+            qtd_nova +=qtd_atual;
+            
+            ProdutosDAO dao= new ProdutosDAO();
+            
+            dao.adicionarEstoque(idProduto, qtd_nova);
+            
+            Utilitarios util = new Utilitarios();
+            util.LimpaTela(painel_dados_produto);
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null,"erro ao adicionar"+ erro.getMessage());
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
@@ -471,6 +488,28 @@ public class FormularioEstoque extends javax.swing.JFrame {
       
        
     }//GEN-LAST:event_tabelaProdutosMouseClicked
+
+    private void txtDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyReleased
+String nome = "%"+txtDescricao.getText()+"%";
+        ProdutosDAO dao = new ProdutosDAO();
+    List<Produtos> lista = dao.Filtrar(nome);
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
+        dados.setNumRows(0);
+        for(Produtos c: lista){
+            dados.addRow(new Object[]{
+            c.getId(),
+            c.getDescricao(),
+            c.getPreco(),
+            
+            c.getQtdEstoque(),
+            c.getFornecedores()
+            
+        });
+           
+        }        
+        
+    }//GEN-LAST:event_txtDescricaoKeyReleased
 private void atualizarTabela(List<Produtos> produtos) {
     DefaultTableModel modeloTabela = (DefaultTableModel) tabelaProdutos.getModel();
     modeloTabela.setRowCount(0); // Limpa as linhas existentes

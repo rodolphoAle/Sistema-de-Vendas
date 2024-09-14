@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.Banco;
 import model.Funcionarios;
-import view.AreaaTrabalho;
+import view.AreaTrabalho;
 import view.FormularioLogin;
 
 /**
@@ -255,7 +255,7 @@ public class FuncionariosDAO {
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
                 JOptionPane.showMessageDialog(null,"Seja bem vindo ao sistema! ");
-                AreaaTrabalho at = new AreaaTrabalho();
+                AreaTrabalho at = new AreaTrabalho();
                 FormularioLogin fl= new FormularioLogin();
                 at.setVisible(true);
                 fl.setVisible(false);

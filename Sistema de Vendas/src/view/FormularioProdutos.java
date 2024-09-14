@@ -82,7 +82,7 @@ public class FormularioProdutos extends javax.swing.JFrame {
         cbListaFornecedor = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Formulario Produtos");
+        setTitle("Formulario Estoque");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -734,7 +734,7 @@ private void atualizarTabela(List<Produtos> produtos) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painel_consulta_produto;
     private javax.swing.JPanel painel_dados_produto;
-    private javax.swing.JTabbedPane painel_guias;
+    public javax.swing.JTabbedPane painel_guias;
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JButton tbnPesquisaProduto;
     private javax.swing.JTextField txtCodigo;

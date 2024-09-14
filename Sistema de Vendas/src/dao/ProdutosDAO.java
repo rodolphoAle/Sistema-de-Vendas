@@ -219,6 +219,44 @@ public class ProdutosDAO {
     return null;
 }
    
+   public void  adicionarEstoque(int id, int qtd_nova){
+    
+            try {
+                String sql = "update tb_produtos set qtd_estoque=? where id=?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1,qtd_nova);
+                stmt.setInt(2,id);
+                
+                stmt.execute();
+                stmt.close();
+                JOptionPane.showMessageDialog(null,"Adicionado com sucesso ao estoque");
+                
+                
+            } catch (SQLException erro) {
+                
+                JOptionPane.showMessageDialog(null,"Falha ao adicionar ao estoque"+erro.getMessage());
+            }
+   }
+    public void  baixaEstoque(int id, int qtd_nova ){
+    
+            try {
+                String sql = "updade tb_produtos set qtd_estoque=? where id=?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1,qtd_nova);
+                stmt.setInt(2,id);
+                
+                stmt.execute();
+                stmt.close();
+                JOptionPane.showMessageDialog(null,"Adicionado com sucesso ao estoque");
+                
+                
+            } catch (SQLException erro) {
+                
+                JOptionPane.showMessageDialog(null,"Falha ao adicionar ao estoque"+erro.getMessage());
+            }
+
+}
+   
    
    
 
