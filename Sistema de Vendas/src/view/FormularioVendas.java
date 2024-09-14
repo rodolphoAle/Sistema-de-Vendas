@@ -5,6 +5,8 @@ import dao.ClientesDAO;
 import dao.FornecedoresDAO;
 import dao.ProdutosDAO;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -57,7 +59,6 @@ public class FormularioVendas extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtData = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnPesquisaNomeCliente = new javax.swing.JButton();
@@ -65,6 +66,7 @@ public class FormularioVendas extends javax.swing.JFrame {
         txtEncontraProduto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_produtos = new javax.swing.JTable();
+        txtData = new javax.swing.JTextField();
         painel_carrinho = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela_carrinho = new javax.swing.JTable();
@@ -110,13 +112,14 @@ public class FormularioVendas extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1153, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         painel_dados_cliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Cliente"));
@@ -140,17 +143,6 @@ public class FormularioVendas extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Data:");
-
-        try {
-            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Nome:");
 
@@ -201,6 +193,8 @@ public class FormularioVendas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabela_produtos);
 
+        txtData.setEditable(false);
+
         javax.swing.GroupLayout painel_dados_clienteLayout = new javax.swing.GroupLayout(painel_dados_cliente);
         painel_dados_cliente.setLayout(painel_dados_clienteLayout);
         painel_dados_clienteLayout.setHorizontalGroup(
@@ -209,7 +203,7 @@ public class FormularioVendas extends javax.swing.JFrame {
                 .addGroup(painel_dados_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_dados_clienteLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(painel_dados_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painel_dados_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(painel_dados_clienteLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,10 +214,10 @@ public class FormularioVendas extends javax.swing.JFrame {
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(59, 59, 59)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtData))))
                     .addGroup(painel_dados_clienteLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
@@ -288,14 +282,17 @@ public class FormularioVendas extends javax.swing.JFrame {
 
         jLabel5.setText("Codigo:");
 
-        txtCodigoProduto.setEditable(false);
-
         jLabel6.setText("Produto:");
+
+        txtProduto.setEditable(false);
 
         jLabel7.setText("Preço:");
 
+        txtPreco.setEditable(false);
+
         jLabel8.setText("Estoque:");
 
+        txtQtd_estoque.setEditable(false);
         txtQtd_estoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQtd_estoqueActionPerformed(evt);
@@ -306,6 +303,11 @@ public class FormularioVendas extends javax.swing.JFrame {
 
         btnPesquisaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/buscar.png"))); // NOI18N
         btnPesquisaProduto.setText("Pesquisar");
+        btnPesquisaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("QTD:");
 
@@ -477,7 +479,7 @@ public class FormularioVendas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painel_vendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
@@ -497,16 +499,17 @@ public class FormularioVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        java.util.Date agora = new java.util.Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy | H:mm:ss");
+        String dataFormatada = formato.format(agora);
+        txtData.setText(String.valueOf(dataFormatada));
         listar();
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
         
     }//GEN-LAST:event_txtCPFActionPerformed
-
-    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
@@ -620,6 +623,26 @@ public class FormularioVendas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddProdutoActionPerformed
 
+    private void btnPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaProdutoActionPerformed
+        String nome = txtCodigoProduto.getText();
+        Clientes obj = new Clientes();
+        ClientesDAO dao = new ClientesDAO();
+        
+        obj = dao.buscarCliente(nome);
+        
+        if(obj.getNome()==null){
+            JOptionPane.showMessageDialog(null,"Cliente  não encontrado!");
+        
+    }     
+        
+        if(obj.getNome()!= null){
+            
+            txtCPF.setText(obj.getCpf());
+            txtNome.setText(obj.getNome());
+            
+        }
+    }//GEN-LAST:event_btnPesquisaProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -688,7 +711,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     private javax.swing.JTable tabela_produtos;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtCodigoProduto;
-    private javax.swing.JFormattedTextField txtData;
+    private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtDescontoProduto;
     private javax.swing.JTextField txtEncontraProduto;
     private javax.swing.JTextField txtNome;
