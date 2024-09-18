@@ -96,6 +96,7 @@ public class FormularioVendas extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtQtd_produto = new javax.swing.JTextField();
         btnAddProduto = new javax.swing.JButton();
+        btnAddProduto1 = new javax.swing.JButton();
         painel_finaliza_venda = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtTotalVenda = new javax.swing.JFormattedTextField();
@@ -343,6 +344,14 @@ public class FormularioVendas extends javax.swing.JFrame {
             }
         });
 
+        btnAddProduto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/limpa.png"))); // NOI18N
+        btnAddProduto1.setText("Limpar");
+        btnAddProduto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProduto1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_dados_produtosLayout = new javax.swing.GroupLayout(painel_dados_produtos);
         painel_dados_produtos.setLayout(painel_dados_produtosLayout);
         painel_dados_produtosLayout.setHorizontalGroup(
@@ -374,8 +383,10 @@ public class FormularioVendas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtQtd_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel_dados_produtosLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(btnAddProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAddProduto)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAddProduto1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(painel_dados_produtosLayout.createSequentialGroup()
                 .addComponent(jLabel5)
@@ -387,6 +398,9 @@ public class FormularioVendas extends javax.swing.JFrame {
                 .addComponent(txtDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        painel_dados_produtosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddProduto, btnAddProduto1});
+
         painel_dados_produtosLayout.setVerticalGroup(
             painel_dados_produtosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_dados_produtosLayout.createSequentialGroup()
@@ -409,12 +423,16 @@ public class FormularioVendas extends javax.swing.JFrame {
                     .addComponent(txtQtd_produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painel_dados_produtosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddProduto)
+                    .addGroup(painel_dados_produtosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddProduto)
+                        .addComponent(btnAddProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painel_dados_produtosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txtQtd_estoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        painel_dados_produtosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddProduto, btnAddProduto1});
 
         painel_finaliza_venda.setBorder(javax.swing.BorderFactory.createTitledBorder("Finaliza Venda"));
 
@@ -493,7 +511,7 @@ public class FormularioVendas extends javax.swing.JFrame {
                 .addGroup(painel_vendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painel_dados_produtos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painel_finaliza_venda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -509,11 +527,10 @@ public class FormularioVendas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(painel_vendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(painel_vendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -724,6 +741,11 @@ public class FormularioVendas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCodigoProdutoKeyPressed
 
+    private void btnAddProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProduto1ActionPerformed
+       Utilitarios util = new Utilitarios();
+        util.LimpaTela(painel_dados_produtos);
+    }//GEN-LAST:event_btnAddProduto1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -764,6 +786,7 @@ public class FormularioVendas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProduto;
+    private javax.swing.JButton btnAddProduto1;
     private javax.swing.JButton btnCancelaVenda;
     private javax.swing.JButton btnPagamento;
     private javax.swing.JButton btnPesquisaNomeCliente;
