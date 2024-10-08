@@ -189,6 +189,7 @@ public class FormularioLogin extends javax.swing.JFrame {
             FuncionariosDAO dao = new FuncionariosDAO();
             dao.efetuarLogin(email, senha);
             
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"erro ao logar no sistema"+ e.getMessage());
         }
@@ -214,7 +215,9 @@ public class FormularioLogin extends javax.swing.JFrame {
  
         FuncionariosDAO dao = new FuncionariosDAO();
         dao.efetuarLogin(email, senha);
-     
+        
+        this.dispose();
+
          }
             
         } catch (Exception e) {
@@ -252,6 +255,7 @@ public class FormularioLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormularioLogin().setVisible(true);
+                
             }
         });
     }

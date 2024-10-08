@@ -20,6 +20,8 @@ import utilitarios.Utilitarios;
  *
  * @author rodolpho
  */
+
+
 public class FormularioVendas extends javax.swing.JFrame {
 
     /**
@@ -45,6 +47,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     }
         
    
+   
     
     public FormularioVendas() {
         initComponents();
@@ -53,6 +56,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     public FormularioVendas(GraphicsConfiguration gc) {
         super(gc);
     }
+            Clientes obj = new Clientes();
 
         double preco,subtotal,total;
         int qtd;
@@ -103,7 +107,7 @@ public class FormularioVendas extends javax.swing.JFrame {
         btnPagamento = new javax.swing.JButton();
         btnCancelaVenda = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Formulario Cliente");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -439,6 +443,7 @@ public class FormularioVendas extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Total da Venda:");
 
+        txtTotalVenda.setEditable(false);
         txtTotalVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtTotalVenda.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtTotalVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -450,6 +455,11 @@ public class FormularioVendas extends javax.swing.JFrame {
         btnPagamento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/iconfinder_Finance_loan_money_1889199.png"))); // NOI18N
         btnPagamento.setText("PAGAMENTO");
+        btnPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagamentoActionPerformed(evt);
+            }
+        });
 
         btnCancelaVenda.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/iconfinder_download_cancel_103531.png"))); // NOI18N
@@ -664,12 +674,15 @@ public class FormularioVendas extends javax.swing.JFrame {
         ProdutosDAO dao = new ProdutosDAO();
         
         obj = dao.buscarProdutos(nome);
+        
         preco = Double.valueOf(txtPreco.getText());
+        
+        // Valida se os dados do produto caso esteja alguma coisa errada
         if(preco<=0 || obj.getQtdEstoque()<=0 || obj.getDescricao()==null){
                 JOptionPane.showMessageDialog(null,"Não foi possivel adicionar ao carrinho Falta informações.");
                 return;
             }
-        
+        // validação e inicalização dos dados do produtos para jogar na tabela de vendas
         if(obj.getDescricao()!=null){
             int estoque = Integer.valueOf(txtQtd_estoque.getText());
             int quantidade_de_venda = Integer.valueOf(txtQtd_produto.getText());
@@ -678,6 +691,10 @@ public class FormularioVendas extends javax.swing.JFrame {
             subtotal = preco*quantidade_de_venda;
             total+=subtotal;
             
+            // validação caso a quantiadade de itens da venda nao for maior que 1
+            if (quantidade_de_venda<1){
+                JOptionPane.showMessageDialog(null,"Quantidade de venda invalida");
+            }
             
             if(estoque>=quantidade_de_venda){
                 txtTotalVenda.setText(String.valueOf(total));
@@ -744,7 +761,33 @@ public class FormularioVendas extends javax.swing.JFrame {
     private void btnAddProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProduto1ActionPerformed
        Utilitarios util = new Utilitarios();
         util.LimpaTela(painel_dados_produtos);
+        util.LimpaTela(painel_dados_cliente);
     }//GEN-LAST:event_btnAddProduto1ActionPerformed
+
+    private void btnPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagamentoActionPerformed
+       String nome = txtNome.getText();
+       String cpf = txtCPF.getText();
+       obj = new Clientes();
+       
+       ClientesDAO daoc= new ClientesDAO();
+       
+       obj=daoc.buscarCliente(nome);
+       obj=daoc.buscarClientePorCPF(cpf);
+       
+       if(obj.getNome()==null && obj.getCpf()==null){
+           JOptionPane.showMessageDialog(null,"verifique se voce não esqueceu de preencher alguma informação importante");
+       }
+       
+       if(obj.getNome()!=null && obj.getCpf()!=null){
+           FormularioPagamentos telaPag = new FormularioPagamentos();
+           telaPag.clientes = obj;
+           telaPag.meus_produtos = meus_produtos;
+           telaPag.txtTotal.setText(String.valueOf(total));
+           telaPag.setVisible(true);
+           this.dispose();
+           
+       }
+    }//GEN-LAST:event_btnPagamentoActionPerformed
 
     /**
      * @param args the command line arguments

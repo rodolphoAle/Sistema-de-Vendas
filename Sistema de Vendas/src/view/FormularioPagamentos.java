@@ -8,6 +8,9 @@ package view;
 import dao.FuncionariosDAO;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Clientes;
+import model.ItensVendas;
 import view.FormularioProdutos;
 
 /**
@@ -15,6 +18,9 @@ import view.FormularioProdutos;
  * @author rodolpho
  */
 public class FormularioPagamentos extends javax.swing.JFrame {
+    ItensVendas obj = new ItensVendas();
+    Clientes clientes = new Clientes();
+    DefaultTableModel meus_produtos;
 
     /**
      * Creates new form FormularioLogin
@@ -47,8 +53,8 @@ public class FormularioPagamentos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtObservacoes = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pagamentos");
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -110,6 +116,7 @@ public class FormularioPagamentos extends javax.swing.JFrame {
             }
         });
 
+        txtTotal.setEditable(false);
         txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTotalActionPerformed(evt);
@@ -269,7 +276,7 @@ public class FormularioPagamentos extends javax.swing.JFrame {
     private javax.swing.JTextField txtCheque;
     private javax.swing.JTextField txtDinheiro;
     private javax.swing.JTextField txtObservacoes;
-    private javax.swing.JTextField txtTotal;
+    public javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtTroco;
     // End of variables declaration//GEN-END:variables
 }
