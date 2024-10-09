@@ -9,7 +9,7 @@ package model;
  *
  * @author rodolpho
  */
-public class Venda {
+public class Vendas {
     private int id;
     private Clientes clientes;
     private String data_venda;

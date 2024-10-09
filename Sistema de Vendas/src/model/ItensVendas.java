@@ -11,7 +11,7 @@ package model;
  */
 public class ItensVendas {
     private int id;
-    private Venda vendas;
+    private Vendas vendas;
     private Produtos produtos;
     private int qtd;
     private double subtotal;
@@ -24,11 +24,11 @@ public class ItensVendas {
         this.id = id;
     }
 
-    public Venda getVendas() {
+    public Vendas getVendas() {
         return vendas;
     }
 
-    public void setVendas(Venda vendas) {
+    public void setVendas(Vendas vendas) {
         this.vendas = vendas;
     }
 

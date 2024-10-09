@@ -276,6 +276,7 @@ public class FormularioVendas extends javax.swing.JFrame {
                 "Código", "Produto", "Qtd", "Preço", "SubTotal"
             }
         ));
+        tabela_carrinho.setEnabled(false);
         jScrollPane2.setViewportView(tabela_carrinho);
 
         javax.swing.GroupLayout painel_carrinhoLayout = new javax.swing.GroupLayout(painel_carrinho);
@@ -283,9 +284,8 @@ public class FormularioVendas extends javax.swing.JFrame {
         painel_carrinhoLayout.setHorizontalGroup(
             painel_carrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_carrinhoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
         painel_carrinhoLayout.setVerticalGroup(
             painel_carrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,7 +444,6 @@ public class FormularioVendas extends javax.swing.JFrame {
         jLabel11.setText("Total da Venda:");
 
         txtTotalVenda.setEditable(false);
-        txtTotalVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtTotalVenda.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtTotalVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -692,11 +691,12 @@ public class FormularioVendas extends javax.swing.JFrame {
             total+=subtotal;
             
             // validação caso a quantiadade de itens da venda nao for maior que 1
-            if (quantidade_de_venda<1){
+            String qtd_venda_String =txtQtd_produto.getText().trim();
+            if (quantidade_de_venda<1 || qtd_venda_String.isEmpty()){
                 JOptionPane.showMessageDialog(null,"Quantidade de venda invalida");
             }
             
-            if(estoque>=quantidade_de_venda){
+            if(estoque>=quantidade_de_venda && quantidade_de_venda>0){
                 txtTotalVenda.setText(String.valueOf(total));
                 meus_produtos = (DefaultTableModel)tabela_carrinho.getModel();
                 meus_produtos.addRow(new Object[]{
