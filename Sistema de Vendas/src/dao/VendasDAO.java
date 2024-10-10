@@ -28,8 +28,8 @@ public class VendasDAO {
 public void salvar(Vendas obj){
     
     try {
-        String sql = "insert into tb_vendas (cliente_id,data_venda,total_venda"
-                + "observacoes)values(?,?,?,?)";
+        String sql = "insert into tb_vendas (cliente_id,data_venda,total_venda,observacoes)"
+                + "values(?,?,?,?)";
         
         PreparedStatement stmt =conn.prepareStatement(sql);
         stmt.setInt(1,obj.getClientes().getId());
@@ -44,7 +44,7 @@ public void salvar(Vendas obj){
         
     } catch (Exception erro) {
         
-        throw  new RuntimeException("erro ao realizar a venda"+erro);
+        JOptionPane.showMessageDialog(null,"erro ao realizar a venda"+erro);
     
     }
     

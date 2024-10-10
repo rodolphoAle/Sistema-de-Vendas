@@ -30,7 +30,7 @@ public void Salvar(ItensVendas obj){
             //criando o SQL
             
 
-            String sql = "INSERT INTO tb_itensvendas(venda_id,produto_id,qtd,subtota)"
+            String sql = "INSERT INTO tb_itensvendas(venda_id,produto_id,qtd,subtotal)"
                     + "values(?,?,?,?)";
             
             //preparar conexao sql para se conectar ao banco

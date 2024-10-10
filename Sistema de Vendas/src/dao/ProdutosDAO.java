@@ -258,7 +258,7 @@ public class ProdutosDAO {
                 
             } catch (SQLException erro) {
                 
-                JOptionPane.showMessageDialog(null,"Falha ao adicionar ao estoque"+erro.getMessage());
+                JOptionPane.showMessageDialog(null,"Falha ao adicionar ao estoque "+erro.getMessage());
             }
    }
     public void  baixaEstoque(int id, int qtd_nova ){
@@ -266,6 +266,7 @@ public class ProdutosDAO {
             try {
                 String sql = "updade tb_produtos set qtd_estoque=? where id=?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
+                
                 stmt.setInt(1,qtd_nova);
                 stmt.setInt(2,id);
                 
@@ -276,7 +277,7 @@ public class ProdutosDAO {
                 
             } catch (SQLException erro) {
                 
-                JOptionPane.showMessageDialog(null,"Falha ao adicionar ao estoque"+erro.getMessage());
+                JOptionPane.showMessageDialog(null,"Falha ao adicionar ao estoque na baixa de estoque"+erro.getMessage());
             }
 
 }
@@ -285,6 +286,7 @@ public class ProdutosDAO {
            int qtd_atual_estoque =0;
            String sql = "select qtd_estoque from tb_produtos where id =?";
            PreparedStatement stmt = conn.prepareStatement(sql);
+           stmt.setInt(1,id);
            ResultSet rs = stmt.executeQuery();
            if(rs.next()){
                qtd_atual_estoque =(rs.getInt("qtd_estoque"));
