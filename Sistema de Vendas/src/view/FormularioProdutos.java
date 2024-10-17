@@ -19,7 +19,8 @@ import utilitarios.Utilitarios;
  * @author rodolpho
  */
 public class FormularioProdutos extends javax.swing.JFrame {
-
+    private String nivelAcesso;
+    
     /**
      * Creates new form FomularioCliente
      */
@@ -44,8 +45,12 @@ public class FormularioProdutos extends javax.swing.JFrame {
         
    
     
-    public FormularioProdutos() {
+    public FormularioProdutos(String nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+        JOptionPane.showMessageDialog(null, "Nível de Acesso: " + nivelAcesso);
         initComponents();
+       configurarVisibilidadeBotoes(nivelAcesso);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -420,6 +425,22 @@ public class FormularioProdutos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+     private void configurarVisibilidadeBotoes(String nivelAcesso) {
+        
+         
+         if (nivelAcesso.equals("Adminstrador")) {
+            // Se for usuário ADM
+                 
+            }
+         
+       if (nivelAcesso.equals("Usuário")) {
+            // Se for usuário comum, esconde os botões de edição e exclusão
+          btnSalvar.setVisible(false);
+          btnEditar.setVisible(false);
+          btnExluir.setVisible(false);
+           
+        }
+    }
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
       Produtos obj = new Produtos();
       obj.setDescricao(txtDescricao.getText());
@@ -708,7 +729,7 @@ private void atualizarTabela(List<Produtos> produtos) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioProdutos().setVisible(true);
+                new FormularioProdutos("").setVisible(true);
             }
         });
     }

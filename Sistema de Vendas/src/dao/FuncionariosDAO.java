@@ -10,7 +10,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.Banco;
 import model.Funcionarios;
-import view.AreaTrabalho;
+import view.AreaTrabalhoAdminstrador;
+
 import view.FormularioLogin;
 
 /**
@@ -254,13 +255,19 @@ public class FuncionariosDAO {
             
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
-                JOptionPane.showMessageDialog(null,"Seja bem vindo ao sistema! ");
-                AreaTrabalho at = new AreaTrabalho();
-                FormularioLogin fl= new FormularioLogin();
-                at.setVisible(true);
-                fl.setVisible(false);
+                String nivelAcesso=rs.getString("nivel_acesso");
+                
+                    JOptionPane.showMessageDialog(null,"Seja bem vindo ao sistema! Logado como"+nivelAcesso);
+                    AreaTrabalhoAdminstrador at = new AreaTrabalhoAdminstrador(nivelAcesso);
+                    FormularioLogin fl= new FormularioLogin();
+                    at.setVisible(true);
+                    fl.dispose();
+                    
+              
+                             
             }else{
                 FormularioLogin login = new FormularioLogin();
+                login.setVisible(true);
                 JOptionPane.showMessageDialog(null,"Dados invalidos");
             }
             

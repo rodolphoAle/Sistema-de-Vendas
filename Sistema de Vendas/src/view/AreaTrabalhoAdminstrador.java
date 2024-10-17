@@ -14,13 +14,16 @@ import javax.swing.ImageIcon;
  *
  * @author rodolpho
  */
-public class AreaTrabalho extends javax.swing.JFrame {
+public class AreaTrabalhoAdminstrador extends javax.swing.JFrame {
 
     /**
      * Creates new form AreaaTrabalho
      */
-    public AreaTrabalho() {
+    private String nivelAcesso;
+    public AreaTrabalhoAdminstrador(String nivelAcesso) {
         initComponents();
+        this.nivelAcesso = nivelAcesso; 
+         configurarVisibilidadeBotoes(nivelAcesso);
     }
 
     /**
@@ -210,7 +213,20 @@ public class AreaTrabalho extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private void configurarVisibilidadeBotoes(String nivelAcesso) {
+        
+         
+         if (nivelAcesso.equals("Adminstrador")) {
+            // Se for usuário ADM
+                 
+            }
+         
+       if (nivelAcesso.equals("Usuário")) {
+            // Se for usuário comum, esconde os botões de edição e exclusão
+          
+           jMenu2.setVisible(false);
+        }
+    }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         FormularioCliente fc = new FormularioCliente();
         fc.setVisible(true);
@@ -225,7 +241,7 @@ public class AreaTrabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       FormularioFuncionario fc = new FormularioFuncionario();
+       FormularioFuncionario fc = new FormularioFuncionario(nivelAcesso);
        fc.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -235,7 +251,7 @@ public class AreaTrabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-       FormularioProdutos fp = new FormularioProdutos();
+       FormularioProdutos fp = new FormularioProdutos(nivelAcesso);
        fp.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
@@ -246,7 +262,7 @@ public class AreaTrabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        FormularioProdutos fp = new FormularioProdutos();
+        FormularioProdutos fp = new FormularioProdutos(nivelAcesso);
         fp.painel_guias.setSelectedIndex(1);
         fp.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
@@ -268,21 +284,23 @@ public class AreaTrabalho extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AreaTrabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaTrabalhoAdminstrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AreaTrabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaTrabalhoAdminstrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AreaTrabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaTrabalhoAdminstrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AreaTrabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaTrabalhoAdminstrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AreaTrabalho().setVisible(true);
+                 new FormularioLogin().setVisible(true);
             }
         });
     }

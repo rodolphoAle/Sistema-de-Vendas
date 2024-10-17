@@ -18,6 +18,8 @@ public class FormularioFuncionario extends javax.swing.JFrame {
     /**
      * Creates new form FomularioCliente
      */
+    private String nivelAcesso;
+    
     public void ListarFuncionario(){
         FuncionariosDAO dao = new FuncionariosDAO();
     List<Funcionarios> lista = dao.Listar();
@@ -51,8 +53,11 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         
    
     
-    public FormularioFuncionario() {
+    public FormularioFuncionario(String nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+       
         initComponents();
+       configurarVisibilidadeBotoes(nivelAcesso);
     }
 
     @SuppressWarnings("unchecked")
@@ -604,7 +609,20 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+private void configurarVisibilidadeBotoes(String nivelAcesso) {
+        
+         
+         if (nivelAcesso.equals("Adminstrador")) {
+            // Se for usuário ADM
+                 
+            }
+         
+       if (nivelAcesso.equals("Usuário")) {
+            // Se for usuário comum, esconde os botões de edição e exclusão
+          
+           
+        }
+    }
     private void tbnPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnPesquisaNomeActionPerformed
         
         String nome = "%"+txtPesquisaNome.getText()+"%";
@@ -973,7 +991,7 @@ public class FormularioFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioFuncionario().setVisible(true);
+                
             }
         });
     }

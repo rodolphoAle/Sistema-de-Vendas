@@ -212,15 +212,13 @@ public class FormularioLogin extends javax.swing.JFrame {
             if(evt.getKeyCode()== KeyEvent.VK_ENTER){
              String email = txtEmail.getText();
              String senha = txtSenha.getText();
- 
-        FuncionariosDAO dao = new FuncionariosDAO();
-        dao.efetuarLogin(email, senha);
-        
-        this.dispose();
-
-         }
+             FuncionariosDAO dao = new FuncionariosDAO();
+             dao.efetuarLogin(email, senha);
+            this.dispose();
+            }
             
         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar login: " + e.getMessage());
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
 

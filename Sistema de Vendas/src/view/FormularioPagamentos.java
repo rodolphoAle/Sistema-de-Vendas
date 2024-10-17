@@ -135,6 +135,11 @@ public class FormularioPagamentos extends javax.swing.JFrame {
         });
 
         txtCheque.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCheque.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtChequeFocusLost(evt);
+            }
+        });
         txtCheque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtChequeActionPerformed(evt);
@@ -273,10 +278,13 @@ public class FormularioPagamentos extends javax.swing.JFrame {
         // fazendo a inicializaçao e lendo o que esta em cada campo.
        
         double dinheiro,cartao,cheque,totalVenda,troco,totalPago;
+        String observacao;
         dinheiro = Double.valueOf(txtDinheiro.getText());
         cartao = Double.valueOf(txtCartao.getText());
         cheque = Double.valueOf(txtCheque.getText());
         totalVenda = Double.valueOf(txtTotal.getText());
+        observacao= String.valueOf(txtObservacoes.getText());
+        
         totalPago = dinheiro+cartao+cheque;
         troco = totalPago - totalVenda;
         
@@ -302,10 +310,11 @@ public class FormularioPagamentos extends javax.swing.JFrame {
             v.setObservacoes(txtObservacoes.getText());
             
             VendasDAO vdao= new VendasDAO();
-            vdao.salvar(v);
+            
+            
             v.setId(vdao.retornaIdVenda());
             JOptionPane.showMessageDialog(null,"ID da ultima venda!"+v.getId());
-            
+            vdao.salvar(v);
             
             for(int i=0; i<meus_produtos.getRowCount(); i++){
             
@@ -322,38 +331,38 @@ public class FormularioPagamentos extends javax.swing.JFrame {
                 item.setQtd(Integer.valueOf(meus_produtos.getValueAt(i,2).toString()));
                 item.setSubtotal(Double.valueOf(meus_produtos.getValueAt(i,4).toString()));
                 
+                
                 qtd_estoque = pdao.retornaQtdEstoque(p.getId());
                 
                 qtd_comprada = Integer.valueOf(meus_produtos.getValueAt(i,2).toString());
                 
                 qtd_atualizada =qtd_estoque-qtd_comprada;
                 
-                pdao.adicionarEstoque(p.getId(),qtd_atualizada);
+                pdao.baixaEstoque(p.getId(),qtd_atualizada);
                 
                 ItensVendasDAO ivd=new ItensVendasDAO();
                 ivd.Salvar(item);
             
         }
-    }
-        
+    } 
+       
         
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void txtDinheiroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDinheiroFocusLost
-        double dinheiro,cartao,cheque,totalVenda,troco,totalPago;
-        dinheiro = Double.valueOf(txtDinheiro.getText());
-        cartao = Double.valueOf(txtCartao.getText());
-        cheque = Double.valueOf(txtCheque.getText());
-        totalVenda = Double.valueOf(txtTotal.getText());
-        totalPago = dinheiro+cartao+cheque;
-        troco = totalPago - totalVenda;
-        
-        txtTroco.setText(String.valueOf(troco));
+        VendasDAO v = new VendasDAO();
+        v.calculaTroco(txtDinheiro, txtCartao, txtCheque, txtTotal, txtTroco);
     }//GEN-LAST:event_txtDinheiroFocusLost
 
     private void txtCartaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCartaoFocusLost
-       
+        VendasDAO v = new VendasDAO();
+        v.calculaTroco(txtDinheiro, txtCartao, txtCheque, txtTotal, txtTroco);
     }//GEN-LAST:event_txtCartaoFocusLost
+
+    private void txtChequeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChequeFocusLost
+        VendasDAO v = new VendasDAO();
+        v.calculaTroco(txtDinheiro, txtCartao, txtCheque, txtTotal, txtTroco);
+    }//GEN-LAST:event_txtChequeFocusLost
 
     /**
      * @param args the command line arguments

@@ -46,10 +46,10 @@ public void Salvar(ItensVendas obj){
             stmt.execute();
             //fecha conecxao
             stmt.close();
-            JOptionPane.showMessageDialog(null,"Venda salva com sucesso");
+            JOptionPane.showMessageDialog(null,"Itens da venda salva com sucesso");
         } catch (SQLException erro) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao salvar a venda "+erro.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao salvar itens da venda "+erro.getMessage());
         }
         
     }

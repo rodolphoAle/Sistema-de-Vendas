@@ -8,7 +8,9 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import jdbc.Banco;
 import model.Vendas;
 
@@ -28,8 +30,7 @@ public class VendasDAO {
 public void salvar(Vendas obj){
     
     try {
-        String sql = "insert into tb_vendas (cliente_id,data_venda,total_venda,observacoes)"
-                + "values(?,?,?,?)";
+        String sql = "INSERT INTO tb_vendas (cliente_id,data_venda,total_venda,observacoes) values(?,?,?,?)";
         
         PreparedStatement stmt =conn.prepareStatement(sql);
         stmt.setInt(1,obj.getClientes().getId());
@@ -40,7 +41,7 @@ public void salvar(Vendas obj){
         stmt.execute();
         stmt.close();
         
-        JOptionPane.showMessageDialog(null,"Venda realizada com sucesso!");
+        JOptionPane.showMessageDialog(null,"Venda Salvar com sucesso! com OBS");
         
     } catch (Exception erro) {
         
@@ -50,22 +51,42 @@ public void salvar(Vendas obj){
     
 }
 
-public int retornaIdVenda(){
+    public int retornaIdVenda() {
     try {
-            int ultimoId=0;
-            String sql= "select max(id) id from tb_vendas";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()){
-                
-                Vendas v = new Vendas();
-                v.setId(rs.getInt("id"));
-                ultimoId=v.getId();
-            }
-        return  ultimoId;
-    } catch (Exception erro) {
-        throw  new RuntimeException("erro ao retornar o ultimo id da venda!"+erro);
+        int ultimoId = 0;
+        String sql = "SELECT MAX(id) AS id FROM tb_vendas";  // Consulta para pegar o último ID
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        // Verifica se há resultado e pega o ID
+        if (rs.next()) {
+            ultimoId = rs.getInt("id");
+        }
+        
+        rs.close();
+        stmt.close();
+        
+        // Verifica se o ID foi obtido corretamente
+        if (ultimoId == 0) {
+            JOptionPane.showMessageDialog(null, "Erro: Nenhum ID de venda foi encontrado.");
+        }
+
+        return ultimoId;
+
+    } catch (SQLException erro) {
+        throw new RuntimeException("Erro ao retornar o último ID da venda: " + erro.getMessage());
     }
 }
+    public void calculaTroco(JTextField txtDinheiro, JTextField txtCartao, JTextField txtCheque, JTextField txtTotal, JTextField txtTroco) {
+        double dinheiro = Double.valueOf(txtDinheiro.getText());
+        double cartao = Double.valueOf(txtCartao.getText());
+        double cheque = Double.valueOf(txtCheque.getText());
+        double totalVenda = Double.valueOf(txtTotal.getText());
+        double totalPago = dinheiro + cartao + cheque;
+        double troco = totalPago - totalVenda;
+
+        txtTroco.setText(String.valueOf(troco));
+    }
+
 }
