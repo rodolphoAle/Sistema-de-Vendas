@@ -6,6 +6,9 @@ import dao.ClientesDAO;
 import dao.FornecedoresDAO;
 import dao.ProdutosDAO;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,13 +33,17 @@ public class FormularioProdutos extends javax.swing.JFrame {
         
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         for(Produtos c: lista){
             dados.addRow(new Object[]{
             c.getId(),
             c.getDescricao(),
             c.getPreco(),
             c.getQtdEstoque(),
+            c.getLote(),
+            sdf.format(c.getData_cadastro()),
             c.getFornecedores().getNome()
+           
             });
            
         }
@@ -77,6 +84,10 @@ public class FormularioProdutos extends javax.swing.JFrame {
         btnExluir = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtData = new javax.swing.JFormattedTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtLote = new javax.swing.JTextField();
         painel_consulta_produto = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtPesquisaProduto = new javax.swing.JTextField();
@@ -92,6 +103,9 @@ public class FormularioProdutos extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -219,6 +233,13 @@ public class FormularioProdutos extends javax.swing.JFrame {
 
         jLabel10.setText("Fornecedor:");
 
+        jLabel11.setText("Data:");
+
+        txtData.setEditable(false);
+        txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
+        jLabel6.setText("Lote:");
+
         javax.swing.GroupLayout painel_dados_produtoLayout = new javax.swing.GroupLayout(painel_dados_produto);
         painel_dados_produto.setLayout(painel_dados_produtoLayout);
         painel_dados_produtoLayout.setHorizontalGroup(
@@ -238,7 +259,11 @@ public class FormularioProdutos extends javax.swing.JFrame {
                             .addGroup(painel_dados_produtoLayout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel_dados_produtoLayout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -262,8 +287,13 @@ public class FormularioProdutos extends javax.swing.JFrame {
                                     .addGroup(painel_dados_produtoLayout.createSequentialGroup()
                                         .addGap(546, 546, 546)
                                         .addComponent(btnExluir))
-                                    .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 113, Short.MAX_VALUE))))
+                                    .addGroup(painel_dados_produtoLayout.createSequentialGroup()
+                                        .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtLote, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         painel_dados_produtoLayout.setVerticalGroup(
             painel_dados_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +301,10 @@ public class FormularioProdutos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_dados_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painel_dados_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(painel_dados_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,8 +319,10 @@ public class FormularioProdutos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painel_dados_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110)
+                    .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(142, 142, 142)
                 .addGroup(painel_dados_produtoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImprimir)
                     .addComponent(btnExluir)
@@ -325,7 +360,7 @@ public class FormularioProdutos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "codigo", "Descrição", "Preço", "Qtd. Estoque", "Fornecedor"
+                "codigo", "Descrição", "Preço", "Qtd. Estoque", "Lote", "Data", "Fornecedor"
             }
         ));
         tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -395,7 +430,7 @@ public class FormularioProdutos extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(cbListaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
         );
 
         painel_guias.addTab("Consulta de Produtos", painel_consulta_produto);
@@ -462,6 +497,14 @@ public class FormularioProdutos extends javax.swing.JFrame {
       obj.setPreco(Double.valueOf(txtPreco.getText()));
       obj.setQtdEstoque(Integer.valueOf(txtQtdEstoque.getText()));
       obj.setFornecedores((Fornecedores)cbFornecedor.getSelectedItem());
+      obj.setLote(Integer.valueOf(txtLote.getText()));
+      
+      Date agora = new Date();
+       // formantando a data para o padrao EUA
+           Timestamp dataCadastro = new Timestamp(agora.getTime());
+            //convertendo a data já formatada para STRING para salvar no banco
+           obj.setData_cadastro(dataCadastro);
+           
       // salvando novo cliente
       ProdutosDAO dao = new ProdutosDAO();
       dao.salvarProdutos(obj);
@@ -544,6 +587,10 @@ public class FormularioProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_cbFornecedorActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        java.util.Date agora = new java.util.Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = formato.format(agora);
+        txtData.setText(String.valueOf(dataFormatada));
         listar();
     }//GEN-LAST:event_formWindowActivated
 
@@ -595,11 +642,13 @@ public class FormularioProdutos extends javax.swing.JFrame {
         txtDescricao.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),1).toString());
         txtPreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),2).toString());
         txtQtdEstoque.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),3).toString());
+        txtLote.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),4).toString());
+        txtData.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),5).toString());
         
        Fornecedores f = new Fornecedores();
        FornecedoresDAO dao = new FornecedoresDAO();
        
-       f = dao.buscarFornecedor(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),4).toString());
+       f = dao.buscarFornecedor(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),6).toString());
        cbFornecedor.removeAllItems();
        cbFornecedor.getModel().setSelectedItem(f);
        
@@ -662,6 +711,8 @@ private void atualizarTabela(List<Produtos> produtos) {
             p.getDescricao(),
             p.getPreco(),
             p.getQtdEstoque(),
+            p.getLote(),
+            p.getData_cadastro(),
             p.getFornecedores().getNome()
         });
     }
@@ -693,6 +744,10 @@ private void atualizarTabela(List<Produtos> produtos) {
     private void cbListaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbListaFornecedorMouseClicked
       
     }//GEN-LAST:event_cbListaFornecedorMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -743,11 +798,13 @@ private void atualizarTabela(List<Produtos> produtos) {
     private javax.swing.JComboBox cbListaFornecedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -757,7 +814,9 @@ private void atualizarTabela(List<Produtos> produtos) {
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JButton tbnPesquisaProduto;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtLote;
     private javax.swing.JTextField txtPesquisaProduto;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtQtdEstoque;

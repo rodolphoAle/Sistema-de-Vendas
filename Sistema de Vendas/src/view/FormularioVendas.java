@@ -210,6 +210,11 @@ public class FormularioVendas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabela_produtos);
 
         txtData.setEditable(false);
+        txtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel_dados_clienteLayout = new javax.swing.GroupLayout(painel_dados_cliente);
         painel_dados_cliente.setLayout(painel_dados_clienteLayout);
@@ -788,6 +793,10 @@ public class FormularioVendas extends javax.swing.JFrame {
            
        }
     }//GEN-LAST:event_btnPagamentoActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
 
     /**
      * @param args the command line arguments

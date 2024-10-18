@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author rodolpho
@@ -16,6 +18,24 @@ public class Produtos {
     private double preco;
     private  int qtdEstoque;
     private Fornecedores fornecedores;
+    private int lote;
+    private Timestamp data_cadastro;
+
+    public int getLote() {
+        return lote;
+    }
+
+    public void setLote(int lote) {
+        this.lote = lote;
+    }
+
+    public Timestamp getData_cadastro() {
+        return data_cadastro;
+    }
+
+    public void setData_cadastro(Timestamp data_cadastro) {
+        this.data_cadastro = data_cadastro;
+    }
 
     public Fornecedores getFornecedores() {
         return fornecedores;

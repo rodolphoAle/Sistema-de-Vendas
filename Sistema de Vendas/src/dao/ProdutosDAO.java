@@ -32,21 +32,23 @@ public class ProdutosDAO {
         
         try {
              //criando o SQL
-            String sql = "insert into tb_produtos (descricao,preco,qtd_estoque,for_id)"
-                    + "values(?,?,?,?)";
+            String sql = "insert into tb_produtos (descricao,preco,qtd_estoque,lote,data_cadastro,for_id)"
+                    + "values(?,?,?,?,?,?)";
             
             //preparar conexao sql para se conectar ao banco
             PreparedStatement stmt=conn.prepareStatement(sql);
             stmt.setString(1,obj.getDescricao());
             stmt.setDouble(2,obj.getPreco());
             stmt.setInt(3,obj.getQtdEstoque());
-            stmt.setInt(4,obj.getFornecedores().getId());
+            stmt.setInt(4,obj.getLote());
+            stmt.setTimestamp(5,obj.getData_cadastro());
+            stmt.setInt(6,obj.getFornecedores().getId());
            
             // executa SQL
             stmt.execute();
             //fecha conecxao
             stmt.close();
-            JOptionPane.showMessageDialog(null,"Fornecedor salvo com sucesso");
+            JOptionPane.showMessageDialog(null,"Produto salvo com sucesso");
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Fornecedor "+erro.getMessage());
         }
@@ -160,7 +162,7 @@ public class ProdutosDAO {
        List<Produtos> lista = new ArrayList<>();
        
         try {
-            String sql= "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, f.nome " +
+            String sql= "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, p.lote, p.data_cadastro, f.nome " +
                      "FROM tb_produtos AS p " +
                      "INNER JOIN tb_fornecedores AS f ON (p.for_id = f.id)";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -170,11 +172,13 @@ public class ProdutosDAO {
                 
                 Produtos obj = new Produtos();
                 Fornecedores f = new Fornecedores();
-                obj.setId(rs.getInt("p.id"));
-                obj.setDescricao(rs.getString("p.descricao"));
-                obj.setPreco(rs.getDouble("p.preco"));
-                obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
-                f.setNome(rs.getString("f.nome"));
+                obj.setId(rs.getInt("id"));
+                obj.setDescricao(rs.getString("descricao"));
+                obj.setPreco(rs.getDouble("preco"));
+                obj.setQtdEstoque(rs.getInt("qtd_estoque"));
+                obj.setLote(rs.getInt("lote"));
+                obj.setData_cadastro(rs.getTimestamp("data_cadastro"));
+                f.setNome(rs.getString("nome"));
                 obj.setFornecedores(f);
                 
                 lista.add(obj);
@@ -189,20 +193,23 @@ public class ProdutosDAO {
     public List<Produtos>Filtrar(String nome){
         List<Produtos>lista = new ArrayList<>();
         try {
-            String sql= "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from tb_produtos as p inner join tb_fornecedores as f on (p.for_id = f.id) where p.descricao like?";
+            String sql= "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, p.lote, p.data_cadastro, f.nome " +
+                     "FROM tb_produtos AS p " +
+                     "INNER JOIN tb_fornecedores AS f ON (p.for_id = f.id)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,nome);
             ResultSet rs= stmt.executeQuery();
             
             while(rs.next()){
                 
                 Produtos obj = new Produtos();
                 Fornecedores f = new Fornecedores();
-                obj.setId(rs.getInt("p.id"));
-                obj.setDescricao(rs.getString("p.descricao"));
-                obj.setPreco(rs.getDouble("p.preco"));
-                obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
-                f.setNome(rs.getString("f.nome"));
+                obj.setId(rs.getInt("id"));
+                obj.setDescricao(rs.getString("descricao"));
+                obj.setPreco(rs.getDouble("preco"));
+                obj.setQtdEstoque(rs.getInt("qtd_estoque"));
+                obj.setLote(rs.getInt("lote"));
+                obj.setData_cadastro(rs.getTimestamp("data_cadastro"));
+                f.setNome(rs.getString("nome"));
                 obj.setFornecedores(f);
                 
                 lista.add(obj);
@@ -218,7 +225,7 @@ public class ProdutosDAO {
    public List<Produtos> FiltrarPorFornecedor(int fornecedorId) {
     List<Produtos> lista = new ArrayList<>();
     try {
-        String sql = "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, f.nome " +
+        String sql = "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, p.lote, p.data_cadastro, f.nome " +
                      "FROM tb_produtos AS p " +
                      "INNER JOIN tb_fornecedores AS f ON p.for_id = f.id " +
                      "WHERE p.for_id = ?";
@@ -228,13 +235,16 @@ public class ProdutosDAO {
         
         while (rs.next()) {
             Produtos obj = new Produtos();
-            Fornecedores f = new Fornecedores();
-            obj.setId(rs.getInt("p.id"));
-            obj.setDescricao(rs.getString("p.descricao"));
-            obj.setPreco(rs.getDouble("p.preco"));
-            obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
-            f.setNome(rs.getString("f.nome"));
-            obj.setFornecedores(f);
+                Fornecedores f = new Fornecedores();
+                obj.setId(rs.getInt("id"));
+                obj.setDescricao(rs.getString("descricao"));
+                obj.setPreco(rs.getDouble("preco"));
+                obj.setQtdEstoque(rs.getInt("qtd_estoque"));
+                obj.setLote(rs.getInt("lote"));
+                obj.setData_cadastro(rs.getTimestamp("data_cadastro"));
+                f.setNome(rs.getString("nome"));
+                obj.setFornecedores(f);
+                
             
             lista.add(obj);
         }
