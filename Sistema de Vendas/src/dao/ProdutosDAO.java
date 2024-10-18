@@ -160,7 +160,9 @@ public class ProdutosDAO {
        List<Produtos> lista = new ArrayList<>();
        
         try {
-            String sql= "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from tb_produtos as p inner join tb_fornecedores as f on (p.for_id = f.id)";
+            String sql= "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, f.nome " +
+                     "FROM tb_produtos AS p " +
+                     "INNER JOIN tb_fornecedores AS f ON (p.for_id = f.id)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs= stmt.executeQuery();
             
