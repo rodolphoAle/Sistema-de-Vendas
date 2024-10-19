@@ -30,18 +30,17 @@ public class VendasDAO {
 public void salvar(Vendas obj){
     
     try {
-        String sql = "INSERT INTO tb_vendas (cliente_id,data_venda,total_venda,observacoes) values(?,?,?,?)";
+        String sql = "INSERT INTO tb_vendas (cliente_id,data_venda,total_venda,observacoes,funcionario_id) values(?,?,?,?,?)";
         
         PreparedStatement stmt =conn.prepareStatement(sql);
         stmt.setInt(1,obj.getClientes().getId());
-        stmt.setString(2,obj.getData_venda());
+        stmt.setTimestamp(2,obj.getData_venda());
         stmt.setDouble(3,obj.getTotal_venda());
         stmt.setString(4,obj.getObservacoes());
-        
+        stmt.setInt(5,obj.getFuncionarios().getId());        
         stmt.execute();
         stmt.close();
-        
-        JOptionPane.showMessageDialog(null,"Venda Salvar com sucesso! com OBS");
+       
         
     } catch (Exception erro) {
         

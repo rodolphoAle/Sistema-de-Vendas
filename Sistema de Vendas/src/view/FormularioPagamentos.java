@@ -6,14 +6,17 @@ import dao.ItensVendasDAO;
 import dao.ProdutosDAO;
 import dao.VendasDAO;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Clientes;
+import model.Funcionarios;
 import model.ItensVendas;
 import model.Produtos;
 import model.Vendas;
+import utilitarios.SessaoUsuario;
 import utilitarios.Utilitarios;
 import view.FormularioProdutos;
 
@@ -24,6 +27,7 @@ import view.FormularioProdutos;
 public class FormularioPagamentos extends javax.swing.JFrame {
     ItensVendas obj = new ItensVendas();
     Clientes clientes = new Clientes();
+    Funcionarios funcionarios = new Funcionarios();
     DefaultTableModel meus_produtos;
 
     /**
@@ -298,17 +302,18 @@ public class FormularioPagamentos extends javax.swing.JFrame {
             Vendas v = new Vendas();
             
             v.setClientes(clientes);
+            v.setFuncionarios(funcionarios);
             
             Date agora = new Date();
-            // formantando a data para o padrao EUA
-            SimpleDateFormat dataEUA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       // formantando a data para o padrao EUA
+           Timestamp data = new Timestamp(agora.getTime());
             //convertendo a data já formatada para STRING para salvar no banco
-            String dataMysql = dataEUA.format(agora);
-            v.setData_venda(dataMysql);
-            
+            v.setData_venda(data);
             v.setTotal_venda(totalVenda);
             v.setObservacoes(txtObservacoes.getText());
-            
+              // Pegue o funcionário logado da sessão
+            Funcionarios funcionarioLogado = SessaoUsuario.getFuncionarioLogado();
+            v.setFuncionarios(funcionarioLogado);
             VendasDAO vdao= new VendasDAO();
             
             

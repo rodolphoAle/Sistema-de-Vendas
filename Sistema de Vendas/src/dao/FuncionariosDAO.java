@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.Banco;
 import model.Funcionarios;
+import utilitarios.SessaoUsuario;
 import view.AreaTrabalhoAdminstrador;
 
 import view.FormularioLogin;
@@ -247,34 +248,42 @@ public class FuncionariosDAO {
     
     public void efetuarLogin(String email,String senha){
         
-        try {
-            String sql = "select * from tb_funcionarios where email=? and senha=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,email);
-            stmt.setString(2,senha);
-            
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
-                String nivelAcesso=rs.getString("nivel_acesso");
-                
-                    JOptionPane.showMessageDialog(null,"Seja bem vindo ao sistema! Logado como"+nivelAcesso);
-                    AreaTrabalhoAdminstrador at = new AreaTrabalhoAdminstrador(nivelAcesso);
-                    FormularioLogin fl= new FormularioLogin();
-                    at.setVisible(true);
-                    fl.dispose();
-                    
-              
-                             
-            }else{
-                FormularioLogin login = new FormularioLogin();
-                login.setVisible(true);
-                JOptionPane.showMessageDialog(null,"Dados invalidos");
-            }
-            
-        } catch (SQLException erro) {
-            
-            JOptionPane.showMessageDialog(null,"erro no sistema"+erro.getMessage());
+    try {
+        String sql = "SELECT * FROM tb_funcionarios WHERE email=? AND senha=?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, email);
+        stmt.setString(2, senha);
+
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            String nivelAcesso = rs.getString("nivel_acesso");
+
+            // Cria um objeto Funcionarios e define os dados do funcionário logado
+            Funcionarios funcionarioLogado = new Funcionarios();
+            funcionarioLogado.setId(rs.getInt("id"));  // Captura o ID do funcionário
+            funcionarioLogado.setNome(rs.getString("nome"));
+            funcionarioLogado.setEmail(rs.getString("email"));
+            // Defina outros atributos conforme necessário
+
+            // Armazena o funcionário logado na sessão
+            SessaoUsuario.setFuncionarioLogado(funcionarioLogado);
+
+            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao sistema! Logado como " + nivelAcesso);
+            AreaTrabalhoAdminstrador at = new AreaTrabalhoAdminstrador(nivelAcesso);
+            FormularioLogin fl = new FormularioLogin();
+            at.setVisible(true);
+            fl.dispose();
+
+        } else {
+            FormularioLogin login = new FormularioLogin();
+            login.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Dados inválidos");
         }
-        
+
+    } catch (SQLException erro) {
+        JOptionPane.showMessageDialog(null, "Erro no sistema: " + erro.getMessage());
+        }
+
+
     }
 }

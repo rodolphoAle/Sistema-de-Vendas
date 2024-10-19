@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Clientes;
 import model.Fornecedores;
+import model.Funcionarios;
 import model.Produtos;
+import utilitarios.SessaoUsuario;
 import utilitarios.Utilitarios;
 
 /**
@@ -27,6 +29,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     /**
      * Creates new form FormularioCliente
      */
+   private String nivelAcesso;
     public void listar(){
         ProdutosDAO dao = new ProdutosDAO();
             List<Produtos> lista = dao.Listar();
@@ -49,10 +52,26 @@ public class FormularioVendas extends javax.swing.JFrame {
    
    
     
-    public FormularioVendas() {
+    public FormularioVendas(String nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+        JOptionPane.showMessageDialog(null, "Nível de Acesso: " + nivelAcesso);
         initComponents();
+       configurarVisibilidadeBotoes(nivelAcesso);
     }
-
+private void configurarVisibilidadeBotoes(String nivelAcesso) {
+        
+         
+         if (nivelAcesso.equals("Adminstrador")) {
+            // Se for usuário ADM
+                 
+            }
+         
+       if (nivelAcesso.equals("Usuário")) {
+            // Se for usuário comum, esconde os botões de edição e exclusão
+         
+           
+        }
+    }
     public FormularioVendas(GraphicsConfiguration gc) {
         super(gc);
     }
@@ -82,6 +101,8 @@ public class FormularioVendas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_produtos = new javax.swing.JTable();
         txtData = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtFuncionarioId = new javax.swing.JTextField();
         painel_carrinho = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela_carrinho = new javax.swing.JTable();
@@ -216,6 +237,15 @@ public class FormularioVendas extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("Fun.ID");
+
+        txtFuncionarioId.setEditable(false);
+        txtFuncionarioId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFuncionarioIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_dados_clienteLayout = new javax.swing.GroupLayout(painel_dados_cliente);
         painel_dados_cliente.setLayout(painel_dados_clienteLayout);
         painel_dados_clienteLayout.setHorizontalGroup(
@@ -235,10 +265,14 @@ public class FormularioVendas extends javax.swing.JFrame {
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtData))))
+                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFuncionarioId))))
                     .addGroup(painel_dados_clienteLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
@@ -257,7 +291,9 @@ public class FormularioVendas extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtFuncionarioId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painel_dados_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -556,6 +592,15 @@ public class FormularioVendas extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy | H:mm:ss");
         String dataFormatada = formato.format(agora);
         txtData.setText(String.valueOf(dataFormatada));
+        
+         // Obtém o funcionário logado da sessão
+    Funcionarios funcionarioLogado = SessaoUsuario.getFuncionarioLogado();
+    
+    if (funcionarioLogado != null) {
+        txtFuncionarioId.setText(String.valueOf(funcionarioLogado.getId()));
+    } else {
+        JOptionPane.showMessageDialog(this, "Nenhum funcionário está logado!");
+    }
         listar();
         
     }//GEN-LAST:event_formWindowActivated
@@ -798,6 +843,10 @@ public class FormularioVendas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataActionPerformed
 
+    private void txtFuncionarioIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFuncionarioIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFuncionarioIdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -831,7 +880,7 @@ public class FormularioVendas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioVendas().setVisible(true);
+                new FormularioVendas("").setVisible(true);
             }
         });
     }
@@ -846,6 +895,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -870,6 +920,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtDescontoProduto;
     private javax.swing.JTextField txtEncontraProduto;
+    private javax.swing.JTextField txtFuncionarioId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtProduto;

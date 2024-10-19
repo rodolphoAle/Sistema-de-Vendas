@@ -167,6 +167,11 @@ public class AreaTrabalhoAdminstrador extends javax.swing.JFrame {
         jMenu5.setText("Vendas");
 
         jMenuItem6.setText("Abir PDV");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem6);
 
         jMenuItem7.setText("Posição do Dia");
@@ -225,6 +230,7 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
             // Se for usuário comum, esconde os botões de edição e exclusão
           
            jMenu2.setVisible(false);
+           jMenuItem4.setVisible(false);
         }
     }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -266,6 +272,11 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
         fp.painel_guias.setSelectedIndex(1);
         fp.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        FormularioVendas fv = new FormularioVendas(nivelAcesso);
+        fv.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments

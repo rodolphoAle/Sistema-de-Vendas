@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author rodolpho
@@ -12,7 +14,8 @@ package model;
 public class Vendas {
     private int id;
     private Clientes clientes;
-    private String data_venda;
+    private Funcionarios funcionarios;
+    private Timestamp data_venda;
     private double total_venda;
     private String observacoes;
 
@@ -31,12 +34,18 @@ public class Vendas {
     public void setClientes(Clientes clientes) {
         this.clientes = clientes;
     }
+    public Funcionarios getFuncionarios(){
+        return funcionarios;
+    }
+    public void setFuncionarios(Funcionarios funcionarios){
+        this.funcionarios =funcionarios;
+    }
 
-    public String getData_venda() {
+    public Timestamp getData_venda() {
         return data_venda;
     }
 
-    public void setData_venda(String data_venda) {
+    public void setData_venda(Timestamp data_venda) {
         this.data_venda = data_venda;
     }
 
@@ -55,5 +64,7 @@ public class Vendas {
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
+
+  
     
 }
