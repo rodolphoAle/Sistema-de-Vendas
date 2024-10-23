@@ -136,7 +136,7 @@ public class ProdutosDAO {
         try {
             String sql = "SELECT * FROM tb_produtos where id=?";
             PreparedStatement stmt=conn.prepareStatement(sql);
-            stmt.setString(1,id);
+            stmt.setInt(1,Integer.parseInt(id));
             ResultSet rs = stmt.executeQuery();
             Produtos obj = new Produtos();
             if(rs.next()){
@@ -190,13 +190,15 @@ public class ProdutosDAO {
         return null;
     }
     // metodo para filtrar o cliente em tempo de digitação e filtra a tabela no banco de dados
-    public List<Produtos>Filtrar(String nome){
+    public List<Produtos>Filtrar(String descricao){
         List<Produtos>lista = new ArrayList<>();
         try {
-            String sql= "SELECT p.id, p.descricao, p.preco, p.qtd_estoque, p.lote, p.data_cadastro, f.nome " +
-                     "FROM tb_produtos AS p " +
-                     "INNER JOIN tb_fornecedores AS f ON (p.for_id = f.id)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            String sql = "SELECT p.*, f.nome AS fornecedor_nome FROM tb_produtos p " +
+                     "JOIN tb_fornecedores f ON p.for_id = f.id " +
+                     "WHERE p.descricao LIKE ?";
+            
+             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,descricao);
             ResultSet rs= stmt.executeQuery();
             
             while(rs.next()){
@@ -209,7 +211,9 @@ public class ProdutosDAO {
                 obj.setQtdEstoque(rs.getInt("qtd_estoque"));
                 obj.setLote(rs.getInt("lote"));
                 obj.setData_cadastro(rs.getTimestamp("data_cadastro"));
-                f.setNome(rs.getString("nome"));
+                 // Acessando o nome do fornecedor usando o alias
+                f.setNome(rs.getString("fornecedor_nome"));
+                
                 obj.setFornecedores(f);
                 
                 lista.add(obj);
