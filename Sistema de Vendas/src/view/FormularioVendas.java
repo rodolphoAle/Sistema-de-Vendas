@@ -132,6 +132,7 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Formulario Cliente");
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -595,8 +596,8 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
         
          // Obtém o funcionário logado da sessão
     Funcionarios funcionarioLogado = SessaoUsuario.getFuncionarioLogado();
+    /*
     
-    /* 
     if (funcionarioLogado != null) {
         txtFuncionarioId.setText(String.valueOf(funcionarioLogado.getId()));
     } else {
