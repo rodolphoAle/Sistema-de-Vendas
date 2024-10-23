@@ -9,6 +9,7 @@ import dao.VendasDAO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Vendas;
 
@@ -17,12 +18,15 @@ import model.Vendas;
  * @author rodolpho
  */
 public class FormularioHistorico extends javax.swing.JFrame {
-
+    private String nivelAcesso;
     /**
      * Creates new form FormularioHistorico
      */
-    public FormularioHistorico() {
+    public FormularioHistorico(String nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+        JOptionPane.showMessageDialog(null, "Nível de Acesso: " + nivelAcesso);
         initComponents();
+       configurarVisibilidadeBotoes(nivelAcesso);
     }
 
     /**
@@ -47,6 +51,7 @@ public class FormularioHistorico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Histórico de vendas");
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -161,7 +166,20 @@ public class FormularioHistorico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void configurarVisibilidadeBotoes(String nivelAcesso) {
+        
+         
+         if (nivelAcesso.equals("Adminstrador")) {
+            // Se for usuário ADM
+                 
+            }
+         
+       if (nivelAcesso.equals("Usuário")) {
+            // Se for usuário comum, esconde os botões de edição e exclusão
+          
+           
+        }
+    }
     private void btnPesquisarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarVendaActionPerformed
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate data_inico = LocalDate.parse(txtInicio.getText(),formato);
@@ -222,7 +240,7 @@ public class FormularioHistorico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioHistorico().setVisible(true);
+                new FormularioHistorico("").setVisible(true);
             }
         });
     }
