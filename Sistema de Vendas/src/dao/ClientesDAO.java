@@ -224,7 +224,7 @@ public class ClientesDAO {
        List<Clientes> lista = new ArrayList<>();
        
         try {
-            String sql= "select * from tb_clientes where nome like ?";
+            String sql= "select * from tb_clientes WHERE LOWER(nome) LIKE LOWER(?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,nome);
             ResultSet rs= stmt.executeQuery();
