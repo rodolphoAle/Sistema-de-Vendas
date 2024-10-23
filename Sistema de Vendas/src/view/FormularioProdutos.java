@@ -99,6 +99,7 @@ public class FormularioProdutos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulario Estoque");
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -571,16 +572,19 @@ public class FormularioProdutos extends javax.swing.JFrame {
         List<Produtos> lista = dao.Filtrar(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
-        for(Produtos c: lista){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+         for(Produtos c: lista){
             dados.addRow(new Object[]{
             c.getId(),
             c.getDescricao(),
             c.getPreco(),
             c.getQtdEstoque(),
+            c.getLote(),
+            sdf.format(c.getData_cadastro()),
             c.getFornecedores().getNome()
-        });
            
-        }
+        });
+         }
     }//GEN-LAST:event_tbnPesquisaProdutoActionPerformed
 
     private void cbFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFornecedorActionPerformed
@@ -601,13 +605,17 @@ public class FormularioProdutos extends javax.swing.JFrame {
         List<Produtos> lista = dao.Filtrar(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
         dados.setNumRows(0);
-        for(Produtos c: lista){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+         for(Produtos c: lista){
             dados.addRow(new Object[]{
             c.getId(),
             c.getDescricao(),
             c.getPreco(),
             c.getQtdEstoque(),
+            c.getLote(),
+            sdf.format(c.getData_cadastro()),
             c.getFornecedores().getNome()
+           
         });
            
         }
