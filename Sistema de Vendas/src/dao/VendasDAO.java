@@ -9,9 +9,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Formatter;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import jdbc.Banco;
+import model.Clientes;
+import model.Funcionarios;
 import model.Vendas;
 
 /**
@@ -86,6 +95,53 @@ public void salvar(Vendas obj){
         double troco = totalPago - totalVenda;
 
         txtTroco.setText(String.valueOf(troco));
+    }
+    public List<Vendas> historicoVendas(LocalDate data_inicio, LocalDate data_fim){
+    
+        try {
+            List<Vendas> lista = new ArrayList<>();
+            
+              String sql = "SELECT v.id, c.nome, "
+                + "v.data_venda, "
+                + "v.total_venda, v.observacoes, v.funcionario_id "
+                + "FROM tb_vendas AS v "
+                + "INNER JOIN tb_clientes AS c ON (v.cliente_id = c.id) "
+                + "WHERE v.data_venda BETWEEN ? AND ?;";
+            
+            PreparedStatement stmt =conn.prepareStatement(sql);
+            stmt.setTimestamp(1, java.sql.Timestamp.valueOf(data_inicio.atStartOfDay()));
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(data_fim.plusDays(1).atStartOfDay()));
+
+            
+            ResultSet rs =stmt.executeQuery();
+            while (rs.next()) {
+                Vendas v = new Vendas();
+                Clientes c = new Clientes();
+                Funcionarios f = new Funcionarios();
+                
+                v.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                v.setClientes(c);
+                
+                // Aqui usamos LocalDateTime para armazenar a data e hora
+                // Agora pegamos o Timestamp diretamente
+                Timestamp dataVendaTimestamp = rs.getTimestamp("data_venda");
+                v.setData_venda(dataVendaTimestamp); 
+            
+                v.setTotal_venda(rs.getDouble("total_venda"));
+                v.setObservacoes(rs.getString("observacoes"));
+                f.setId(rs.getInt("funcionario_id"));
+                v.setFuncionarios(f);
+                
+                lista.add(v);
+                
+            }
+            return lista;
+            
+        } catch (Exception e) {
+            
+            throw  new RuntimeException("Erro ao criar o historico de vendas "+e);
+        }
     }
 
 }

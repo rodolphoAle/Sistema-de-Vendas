@@ -32,7 +32,7 @@
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="painel_vendas" max="32767" attributes="0"/>
-                  <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" pref="1060" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -176,13 +176,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtEncontraProduto" min="-2" pref="255" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="513" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -279,16 +276,33 @@
                 <Component class="javax.swing.JTable" name="tabela_produtos">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="0">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
                         <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
                         <Column editable="true" title="Qtd. Estoque" type="java.lang.Object"/>
+                        <Column editable="true" title="Lote" type="java.lang.Object"/>
+                        <Column editable="true" title="Data" type="java.lang.Object"/>
                         <Column editable="true" title="Fornecedor" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -476,7 +490,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="43" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>

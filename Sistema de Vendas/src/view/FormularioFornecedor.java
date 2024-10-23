@@ -715,7 +715,7 @@ public class FormularioFornecedor extends javax.swing.JFrame {
     private void txtPesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaNomeKeyReleased
        String nome = "%"+txtPesquisaNome.getText()+"%";
         FornecedoresDAO dao = new FornecedoresDAO();
-    List<Fornecedores> lista = dao.Filtrar(nome);
+        List<Fornecedores> lista = dao.Filtrar(nome);
         
         DefaultTableModel dados = (DefaultTableModel) tabelaFornecedor.getModel();
         dados.setNumRows(0);

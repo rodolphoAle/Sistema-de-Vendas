@@ -42,6 +42,8 @@ public class FormularioVendas extends javax.swing.JFrame {
                 c.getDescricao(),
                 c.getPreco(),
                 c.getQtdEstoque(),
+                c.getLote(),
+                c.getData_cadastro(),
                 c.getFornecedores().getNome()
                 });
 
@@ -220,7 +222,7 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
 
             },
             new String [] {
-                "Código", "Descrição", "Preço", "Qtd. Estoque", "Fornecedor"
+                "Código", "Descrição", "Preço", "Qtd. Estoque", "Lote", "Data", "Fornecedor"
             }
         ));
         tabela_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,11 +279,9 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
                         .addContainerGap()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEncontraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painel_dados_clienteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEncontraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         painel_dados_clienteLayout.setVerticalGroup(
             painel_dados_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,7 +432,7 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
                                 .addComponent(btnAddProduto)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAddProduto1)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(painel_dados_produtosLayout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -572,7 +572,7 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painel_vendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1060, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,11 +596,13 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
          // Obtém o funcionário logado da sessão
     Funcionarios funcionarioLogado = SessaoUsuario.getFuncionarioLogado();
     
+    /* 
     if (funcionarioLogado != null) {
         txtFuncionarioId.setText(String.valueOf(funcionarioLogado.getId()));
     } else {
         JOptionPane.showMessageDialog(this, "Nenhum funcionário está logado!");
     }
+    */
         listar();
         
     }//GEN-LAST:event_formWindowActivated
@@ -690,9 +692,9 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
     }//GEN-LAST:event_txtNomeKeyPressed
 
     private void txtEncontraProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEncontraProdutoKeyReleased
-        String nome = "%"+txtEncontraProduto.getText()+"%";
+        String descricao = "%"+txtEncontraProduto.getText()+"%";
         ProdutosDAO dao = new ProdutosDAO();
-        List<Produtos> lista = dao.Filtrar(nome);
+        List<Produtos> lista = dao.Filtrar(descricao);
         DefaultTableModel dados = (DefaultTableModel) tabela_produtos.getModel();
         dados.setNumRows(0);
         for(Produtos c: lista){
@@ -701,6 +703,8 @@ private void configurarVisibilidadeBotoes(String nivelAcesso) {
             c.getDescricao(),
             c.getPreco(),
             c.getQtdEstoque(),
+            c.getLote(),
+            c.getData_cadastro(),
             c.getFornecedores().getNome()
         });
            
