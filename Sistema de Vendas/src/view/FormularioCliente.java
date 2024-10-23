@@ -14,6 +14,7 @@ import utilitarios.Utilitarios;
  * @author rodolpho
  */
 public class FormularioCliente extends javax.swing.JFrame {
+     private String nivelAcesso;
 
     /**
      * Creates new form FormularioCliente
@@ -48,8 +49,12 @@ public class FormularioCliente extends javax.swing.JFrame {
         
    
     
-    public FormularioCliente() {
+    public FormularioCliente(String nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+        JOptionPane.showMessageDialog(null, "Nível de Acesso: " + nivelAcesso);
         initComponents();
+       configurarVisibilidadeBotoes(nivelAcesso);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -102,6 +107,7 @@ public class FormularioCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulario Cliente");
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -541,7 +547,21 @@ public class FormularioCliente extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void configurarVisibilidadeBotoes(String nivelAcesso) {
+        
+         
+         if (nivelAcesso.equals("Adminstrador")) {
+            // Se for usuário ADM
+                 
+            }
+         
+       if (nivelAcesso.equals("Usuário")) {
+            // Se for usuário comum, esconde os botões de edição e exclusão
+         btnExluir.setVisible(false);
+           
+        }
+    }
+    
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnImprimirActionPerformed
@@ -855,7 +875,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioCliente().setVisible(true);
+                new FormularioCliente("").setVisible(true);
             }
         });
     }
