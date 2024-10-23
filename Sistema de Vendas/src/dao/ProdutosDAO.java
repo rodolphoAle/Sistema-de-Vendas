@@ -195,7 +195,7 @@ public class ProdutosDAO {
         try {
             String sql = "SELECT p.*, f.nome AS fornecedor_nome FROM tb_produtos p " +
                      "JOIN tb_fornecedores f ON p.for_id = f.id " +
-                     "WHERE p.descricao LIKE ?";
+                     "WHERE LOWER(p.descricao) LIKE (?)";
             
              PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,descricao);
